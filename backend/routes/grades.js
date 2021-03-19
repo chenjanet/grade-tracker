@@ -4,7 +4,7 @@ let Grade = require('../models/grade.model');
 router.route('/').get((req, res) => {
     Grade.find()
         .then(grades => res.json(grades))
-        .catch(err => res.status(400).json('Error: ' + error));
+        .catch(err => res.status(400).json('Error: ' + err));
 });
 
 router.route('/add').post((req, res) => {

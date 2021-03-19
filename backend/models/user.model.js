@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
+    //figure out how to incorporate references instead somehow
     username: {
         type: String,
         required: true,

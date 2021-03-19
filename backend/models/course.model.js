@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const courseSchema = new Schema({
     username: { type: String, required: true },
     name: { type: String, required: true },
-    grades: { type: Array, required: true }
+    average: { type: Number, required: true }
 }, {
     timestamps: true
 });

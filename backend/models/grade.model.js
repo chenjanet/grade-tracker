@@ -4,8 +4,8 @@ const Schema = mongoose.Schema;
 
 const gradeSchema = new Schema({
     username: { type: String, required: true },
-    course: { type: String, required: true },
-    name: { type: String, required: true },
+    coursename: { type: String, required: true },
+    gradename: { type: String, required: true },
     grade: { type: Number, required: true },
     weight: { type: Number }
 }, {

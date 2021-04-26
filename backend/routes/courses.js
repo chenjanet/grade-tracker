@@ -11,13 +11,13 @@ router.route('/add').post((req, res) => {
     const username = req.body.username;
     const groupname = req.body.groupname;
     const coursename = req.body.coursename;
-    const average = req.body.average;
+    const grades = req.body.grades;
 
     const newCourse = new Course({
         username,
         groupname,
         coursename,
-        average
+        grades
     });
 
     newCourse.save()

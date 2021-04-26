@@ -25,4 +25,17 @@ router.route('/add').post((req, res) => {
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
+router.route('/:id').get((req, res) => {
+    Course.findById(req.params.id)
+        .then(course => res.json(course))
+        .catch(err => res.status(400).json('Error: ' + err));
+});
+
+router.route(':/id').delete((req, res) => {
+    Course.findByIdAndDelete(req.params.id)
+        .then(() => {
+            res.json('Group deleted.')
+        })
+});
+
 module.exports = router;

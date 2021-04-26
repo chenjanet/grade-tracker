@@ -21,11 +21,9 @@ connection.once('open', () => {
 });
 
 const usersRouter = require('./routes/users');
-const groupsRouter = require('./routes/groups');
 const coursesRouter = require('./routes/courses');
 
 app.use('/users', usersRouter);
-app.use('/groups', groupsRouter);
 app.use('/courses', coursesRouter);
 
 app.listen(port, () => {

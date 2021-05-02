@@ -3,7 +3,6 @@ import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import './App.css';
 import "bootstrap/dist/css/bootstrap.min.css";
 import Login from './pages/login/login.page';
-import Home from './pages/home/home.page';
 import Register from './pages/register/register.page';
 
 function App() {
@@ -14,10 +13,10 @@ function App() {
       <BrowserRouter>
           <Switch>
             <Route path="/login">
-              <Login />
+              <Login setToken={setToken} />
             </Route>
             <Route path="/register">
-              <Register />
+              <Register setToken={setToken} />
             </Route>
           </Switch>
           <Redirect to="/login" />

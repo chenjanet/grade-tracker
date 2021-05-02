@@ -20,10 +20,10 @@ export default function Register({setToken}) {
     const handleSubmit = async e => {
         e.preventDefault();
         if (confirmPassword !== password) {
-            setPasswordsMatch("Error: passwords do not match. Please resubmit.");
+            setPasswordsMatch('Error: passwords do not match. Please resubmit.');
             return;
         } else {
-            setPasswordsMatch("");
+            setPasswordsMatch('');
         }
         const token = await registerUser({
             username,
@@ -32,27 +32,27 @@ export default function Register({setToken}) {
         setToken(token);
     }
     return(
-        <div className="register-wrapper">
-            <Header text="Sign up" />
-            <div className="card login-card mt-2 pt-3 pb-3 col-8 mx-auto hv-center justify-content-center">
+        <div className='register-wrapper'>
+            <Header text='Sign up' />
+            <div className='card login-card mt-2 pt-3 pb-3 col-8 mx-auto hv-center justify-content-center'>
                 <form onSubmit={handleSubmit}> 
-                    <div className="form-group text-left">
-                        <label htmlFor="registerUsername">Username</label>
-                        <input type="text" className="form-control" id="registerUsername" placeholder="Enter username" onChange={e => setUsername(e.target.value)} />
+                    <div className='form-group text-left'>
+                        <label htmlFor='registerUsername'>Username</label>
+                        <input type='text' className='form-control' id='registerUsername' placeholder='Enter username' onChange={e => setUsername(e.target.value)} />
                     </div>
-                    <div className="form-group text-left">
-                        <label htmlFor="registerPassword">Password</label>
-                        <input type="password" className="form-control" id="registerPassword" placeholder="Password" onChange={e => setPassword(e.target.value)} />
+                    <div className='form-group text-left'>
+                        <label htmlFor='registerPassword'>Password</label>
+                        <input type='password' className='form-control' id='registerPassword' placeholder='Password' onChange={e => setPassword(e.target.value)} />
                     </div>
-                    <div className="form-group text-left">
-                        <label htmlFor="registerConfirmPassword">Confirm password</label>
-                        <input type="password" className="form-control" id="registerConfirmPassword" placeholder="Confirm password" onChange={e => setConfirmPassword(e.target.value)} />
+                    <div className='form-group text-left'>
+                        <label htmlFor='registerConfirmPassword'>Confirm password</label>
+                        <input type='password' className='form-control' id='registerConfirmPassword' placeholder='Confirm password' onChange={e => setConfirmPassword(e.target.value)} />
                     </div>
-                    <p id="passwordsMatch">{passwordsMatch}</p>
-                    <button type="submit" className="btn btn-dark">Sign up</button>
+                    <p id='passwordsMatch'>{passwordsMatch}</p>
+                    <button type='submit' className='btn btn-dark'>Sign up</button>
                 </form>
             </div>
-            <Link to="/login">Login a preexisting account</Link>
+            <Link to='/login'>Login a preexisting account</Link>
         </div>
     );
 }

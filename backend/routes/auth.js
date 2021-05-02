@@ -2,7 +2,7 @@ const router = require('express').Router();
 let User = require('../models/user.model');
 
 router.route('/login').post((req, res) => {
-    User.findOne({ "username": req.body.username })
+    User.findOne({ 'username': req.body.username })
         .then(user => {
             if (user.password === req.body.password) {
                 res.send({ token: 'test123' });

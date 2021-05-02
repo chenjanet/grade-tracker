@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Header from '../../components/header.component';
+
 import './login.css';
 
 async function loginUser(creds) {
-    axios.post('https://localhost:5000/login', creds)
-                .then(res => { return res.data });
+    return axios.post('http://localhost:5000/auth/login', creds)
+                .then(res => res.data);
 }
 
 export default function Login({setToken}) {
@@ -16,7 +17,6 @@ export default function Login({setToken}) {
 
     const handleSubmit = async e => {
         e.preventDefault();
-        console.log("e");
         const token = await loginUser({
             username, 
             password

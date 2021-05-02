@@ -7,10 +7,7 @@ import './login.css';
 
 async function loginUser(creds) {
     axios.post('https://localhost:5000/login', creds)
-        .then(res => {
-            return res.data;
-        });
-    
+                .then(res => { return res.data });
 }
 
 export default function Login({setToken}) {
@@ -19,11 +16,12 @@ export default function Login({setToken}) {
 
     const handleSubmit = async e => {
         e.preventDefault();
+        console.log("e");
         const token = await loginUser({
             username, 
             password
         });
-        setToken(token.token);
+        setToken(token);
     }
 
     return(

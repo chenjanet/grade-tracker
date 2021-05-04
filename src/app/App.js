@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Login from './pages/login/login.page';
-import Register from './pages/register/register.page';
+import Login from '../pages/login/login.page';
+import Register from '../pages/register/register.page';
+import useToken from './useToken';
 
 function App() {
-  const [token, setToken] = useState();
+  const { token, setToken } = useToken();
 
   if (!token) {
     return (

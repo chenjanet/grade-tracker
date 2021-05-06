@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import GroupBlock from '../../components/groupBlock/groupBlock.component';
 
 class Home extends React.Component {
     constructor(props) {
@@ -35,17 +36,22 @@ class Home extends React.Component {
                 });
             })
             .catch(err => console.log('Error: ' + err));
-        //get all the groups here and add them to the state
     }
 
     render() {
+        let groups = [], i = 0;
+        for (let group in this.state.groups) {
+            groups.push(<GroupBlock key={i} name={group} courses={JSON.stringify(this.state.groups[group])}/>);
+            i++;
+        }
         //for loop here to create different Route paths for each course group
         return (
             <div>
                 <Router>
 
                 </Router>
-                {JSON.stringify(this.state.groups)}
+                <h1>Course groups</h1>
+                {groups}
             </div>
         );
     }

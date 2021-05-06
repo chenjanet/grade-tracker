@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
 import GroupBlock from '../../components/groupBlock/groupBlock.component';
 import Group from '../../pages/group/group.page';
 
@@ -44,18 +44,31 @@ class Home extends React.Component {
     render() {
         let groupBlocks = [], groups = [], i = 0;
         for (let group in this.state.groups) {
-            groupBlocks.push(<GroupBlock key={i} name={group} courses={JSON.stringify(this.state.groups[group])} />);
-            groups.push(<Group key={i} name={group} courses={JSON.stringify(this.state.groups[group])} />);
+            let groupBlockComponent = <GroupBlock key={i} name={group} courses={JSON.stringify(this.state.groups[group])} />;
+            groupBlocks.push(
+                <Link to={`/${group}`} key={i} className='mt-3 mr-2 pl-0 col-3'>
+                    {groupBlockComponent}
+                </Link> 
+            );
+            groups.push(
+                <Route exact path={`/${group}`} key={i}>
+                    <Group name={group} courses={JSON.stringify(this.state.groups[group])} />
+                </Route>
+            );
             i++;
         }
         //for loop here to create different Route paths for each course group
         return (
             <div>
-                <Router>
-
-                </Router>
-                <h1>Course groups</h1>
-                <div className="groups-wrapper">{groups}</div>
+                <BrowserRouter>
+                    <Switch>
+                        {groups}
+                        <Route path='/' key={i}>
+                            <h1>Course groups</h1>
+                            <div className="groups-wrapper">{groupBlocks}</div>
+                        </Route>
+                    </Switch>
+                </BrowserRouter>
             </div>
         );
     }

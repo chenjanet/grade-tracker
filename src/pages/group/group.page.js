@@ -15,7 +15,7 @@ class Group extends React.Component {
             <div>
                 <Router>
                 </Router>
-                Hello World!
+                <h1>{this.props.name}</h1>
             </div>
         );
     }

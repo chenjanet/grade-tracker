@@ -3,6 +3,8 @@ import axios from 'axios';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import GroupBlock from '../../components/groupBlock/groupBlock.component';
 
+import './home.css';
+
 class Home extends React.Component {
     constructor(props) {
         super(props);
@@ -51,7 +53,7 @@ class Home extends React.Component {
 
                 </Router>
                 <h1>Course groups</h1>
-                {groups}
+                <div className="groups-wrapper">{groups}</div>
             </div>
         );
     }

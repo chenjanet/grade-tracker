@@ -1,5 +1,4 @@
 import React from 'react';
-import Header from '../header.component';
 import './groupBlock.css';
 
 export default function groupBlock(props) {
@@ -9,11 +8,9 @@ export default function groupBlock(props) {
         courseNames.push(<div>{courseList[course].course}</div>);
     }
     return (
-        <div className='groupBlock-wrapper'>
-            <div className='card groupBlock mt-3 pb-3 col-3'>
-                <h2>{props.name}</h2>
-                {courseNames}
-            </div>
+        <div className='card groupBlock mt-3 mr-2 pb-3 col-3'>
+            <h2>{props.name}</h2>
+            {courseNames}
         </div>
     );
 }

@@ -4,7 +4,7 @@ import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
 import GroupBlock from '../../components/groupBlock/groupBlock.component';
 import Group from '../../pages/group/group.page';
 
-import './home.css';
+import '../pages.css';
 
 class Home extends React.Component {
     constructor(props) {
@@ -56,7 +56,7 @@ class Home extends React.Component {
                 </Route>
             );
         }
-        //for loop here to create different Route paths for each course group
+
         return (
             <div>
                 <BrowserRouter>

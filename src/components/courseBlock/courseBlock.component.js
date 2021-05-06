@@ -1,5 +1,5 @@
 import React from 'react';
-import './courseBlock.css';
+import '../components.css';
 
 export default function courseBlock(props) {
     return (

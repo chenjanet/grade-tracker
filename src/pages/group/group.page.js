@@ -3,7 +3,7 @@ import { BrowserRouter, Router, Switch, Route, Link } from 'react-router-dom';
 import CourseBlock from '../../components/courseBlock/courseBlock.component';
 import Course from '../course/course.page';
 
-import './group.css';
+import '../pages.css';
 
 class Group extends React.Component {
     constructor(props) {
@@ -27,9 +27,8 @@ class Group extends React.Component {
                     <Course name={this.state.courses[course].course} average={this.state.courses[course].average} />
                 </Route>
             );
-            console.log(courseBlocks);
         }
-        //for loop here to create different Route paths for each course group
+
         return (
             <div>
                 <BrowserRouter>

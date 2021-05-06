@@ -1,5 +1,6 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+
+import '../pages.css';
 
 class Course extends React.Component {
     constructor(props) {
@@ -12,9 +13,7 @@ class Course extends React.Component {
     render() {
         return (
             <div>
-                <Router>
-                </Router>
-                {this.props.name}
+                <h1>{this.props.name}</h1>
             </div>
         );
     }

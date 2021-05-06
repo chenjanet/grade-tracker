@@ -1,5 +1,5 @@
 import React from 'react';
-import './groupBlock.css';
+import '../components.css';
 
 export default function groupBlock(props) {
     let courseNames = [];

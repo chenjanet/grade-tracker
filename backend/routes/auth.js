@@ -5,9 +5,15 @@ router.route('/login').post((req, res) => {
     User.findOne({ 'username': req.body.username })
         .then(user => {
             if (user.password === req.body.password) {
-                res.send({ token: 'test123' });
+                res.send({ 
+                    token: 'test123',
+                    uid: req.body.id 
+                });
             } else {
-                res.send({ token: '' });
+                res.send({ 
+                    token: '',
+                    uid: ''
+                });
             }
         })
         .catch(err => res.status(400).json('Error: ' + err));

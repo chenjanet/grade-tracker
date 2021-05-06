@@ -1,9 +1,9 @@
-.groups-wrapper {
+.courses-wrapper {
     display: flex;
     flex-direction: row;
 }
 
-.groups-wrapper a {
+.courses-wrapper a {
     max-width: 25%;
 }
 
@@ -18,5 +18,5 @@ a:link, a:visited {
 }
 
 a:hover, a:active {
-color: #343B3F;
+    color: #343B3F;
 }

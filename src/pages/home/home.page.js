@@ -26,11 +26,11 @@ class Home extends React.Component {
                     }
                     if (!courseGroups[courseData[i].groupname]) {
                         courseGroups[courseData[i].groupname] = [
-                            { "course": courseData[i].coursename, "cid": courseData[i]._id }
+                            { "course": courseData[i].coursename, "cid": courseData[i]._id, "average": courseData[i].average }
                         ];
                     } else {
                         courseGroups[courseData[i].groupname].push(
-                            { "course": courseData[i].coursename, "cid": courseData[i]._id }
+                            { "course": courseData[i].coursename, "cid": courseData[i]._id, "average": courseData[i].average }
                         );
                     }
                 }
@@ -38,24 +38,23 @@ class Home extends React.Component {
                     groups: courseGroups
                 });
             })
-            .catch(err => console.log('Error: ' + err));
+            .catch(err => console.error('Error: ' + err));
     }
 
     render() {
-        let groupBlocks = [], groups = [], i = 0;
+        let groupBlocks = [], groups = [];
         for (let group in this.state.groups) {
-            let groupBlockComponent = <GroupBlock key={i} name={group} courses={JSON.stringify(this.state.groups[group])} />;
+            let groupBlockComponent = <GroupBlock name={group} courses={JSON.stringify(this.state.groups[group])} />;
             groupBlocks.push(
-                <Link to={`/${group}`} key={i} className='mt-3 mr-2 pl-0 col-3'>
+                <Link to={`/${group}`} className='mt-3 mr-2 pl-0'>
                     {groupBlockComponent}
                 </Link> 
             );
             groups.push(
-                <Route exact path={`/${group}`} key={i}>
+                <Route exact path={`/${group}`}>
                     <Group name={group} courses={JSON.stringify(this.state.groups[group])} />
                 </Route>
             );
-            i++;
         }
         //for loop here to create different Route paths for each course group
         return (
@@ -63,7 +62,7 @@ class Home extends React.Component {
                 <BrowserRouter>
                     <Switch>
                         {groups}
-                        <Route path='/' key={i}>
+                        <Route path='/'>
                             <h1>Course groups</h1>
                             <div className="groups-wrapper">{groupBlocks}</div>
                         </Route>

@@ -6,12 +6,35 @@ class Home extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            groups: []
+            groups: {}
         };
     }
 
     componentDidMount() {
-        axios.get('http://localhost:5000/courses')
+        axios.get(`http://localhost:5000/courses`)
+            .then(res => {
+                let courseData = res.data;
+                let username = localStorage.getItem('user');
+                let courseGroups = {};
+                for (let i = 0; i < courseData.length; i++) {
+                    if (courseData[i].username != username) {
+                        continue;
+                    }
+                    if (!courseGroups[courseData[i].groupname]) {
+                        courseGroups[courseData[i].groupname] = [
+                            { "course": courseData[i].coursename, "cid": courseData[i]._id }
+                        ];
+                    } else {
+                        courseGroups[courseData[i].groupname].push(
+                            { "course": courseData[i].coursename, "cid": courseData[i]._id }
+                        );
+                    }
+                }
+                this.setState({
+                    groups: courseGroups
+                });
+            })
+            .catch(err => console.log('Error: ' + err));
         //get all the groups here and add them to the state
     }
 
@@ -22,7 +45,7 @@ class Home extends React.Component {
                 <Router>
 
                 </Router>
-                Hello World!
+                {JSON.stringify(this.state.groups)}
             </div>
         );
     }

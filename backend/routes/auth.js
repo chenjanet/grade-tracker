@@ -7,12 +7,12 @@ router.route('/login').post((req, res) => {
             if (user.password === req.body.password) {
                 res.send({ 
                     token: 'test123',
-                    uid: req.body.id 
+                    user: req.body.username
                 });
             } else {
                 res.send({ 
                     token: '',
-                    uid: ''
+                    user: ''
                 });
             }
         })

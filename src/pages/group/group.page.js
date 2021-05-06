@@ -1,18 +1,12 @@
 import React from 'react';
-import axios from 'axios';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
 class Group extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            groups: []
+            courses: JSON.parse(this.props.courses)
         };
-    }
-
-    componentDidMount() {
-        axios.get('http://localhost:5000/courses')
-        //get all the groups here and add them to the state
     }
 
     render() {
@@ -27,4 +21,4 @@ class Group extends React.Component {
     }
 }
 
-export default Home;
+export default Group;

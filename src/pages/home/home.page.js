@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import GroupBlock from '../../components/groupBlock/groupBlock.component';
+import Group from '../../pages/group/group.page';
 
 import './home.css';
 
@@ -41,9 +42,10 @@ class Home extends React.Component {
     }
 
     render() {
-        let groups = [], i = 0;
+        let groupBlocks = [], groups = [], i = 0;
         for (let group in this.state.groups) {
-            groups.push(<GroupBlock key={i} name={group} courses={JSON.stringify(this.state.groups[group])}/>);
+            groupBlocks.push(<GroupBlock key={i} name={group} courses={JSON.stringify(this.state.groups[group])} />);
+            groups.push(<Group key={i} name={group} courses={JSON.stringify(this.state.groups[group])} />);
             i++;
         }
         //for loop here to create different Route paths for each course group

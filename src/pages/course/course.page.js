@@ -17,8 +17,8 @@ class Course extends React.Component {
         axios.get(`http://localhost:5000/courses/${id}`)
             .then(res => {
                 let currGrades = this.state.grades;
-                for (let grade in res.data) {
-                    currGrades.push(res.data[grade]);
+                for (let grade in res.data.grades) {
+                    currGrades.push(res.data.grades[grade]);
                 }
                 this.setState({
                     grades: currGrades
@@ -28,9 +28,15 @@ class Course extends React.Component {
     }
 
     render() {
+        let tableContents = [];
+        for (let grade in this.state.grades) {
+            tableContents.push();
+        }
+        let gradeTable = (<table className='gradeTable'>{tableContents}</table>);
         return (
             <div>
                 <h1>{this.props.name}</h1>
+                {gradeTable}
             </div>
         );
     }

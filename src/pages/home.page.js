@@ -4,7 +4,7 @@ import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
 import GroupBlock from '../components/groupBlock.component';
 import Group from './group.page';
 
-import '../pages.css';
+import './pages.css';
 
 class Home extends React.Component {
     constructor(props) {
@@ -26,11 +26,11 @@ class Home extends React.Component {
                     }
                     if (!courseGroups[courseData[i].groupname]) {
                         courseGroups[courseData[i].groupname] = [
-                            { "course": courseData[i].coursename, "cid": courseData[i]._id, "average": courseData[i].average }
+                            { "course": courseData[i].coursename, "cid": courseData[i]._id, "average": courseData[i].average, "weight": courseData[i].weight }
                         ];
                     } else {
                         courseGroups[courseData[i].groupname].push(
-                            { "course": courseData[i].coursename, "cid": courseData[i]._id, "average": courseData[i].average }
+                            { "course": courseData[i].coursename, "cid": courseData[i]._id, "average": courseData[i].average, "weight": courseData[i].weight }
                         );
                     }
                 }
@@ -42,19 +42,20 @@ class Home extends React.Component {
     }
 
     render() {
-        let groupBlocks = [], groups = [];
+        let groupBlocks = [], groups = [], i = 0;
         for (let group in this.state.groups) {
             let groupBlockComponent = <GroupBlock name={group} courses={JSON.stringify(this.state.groups[group])} />;
             groupBlocks.push(
-                <Link to={`/${group}`} className='mt-3 mr-2 pl-0'>
+                <Link to={`/${group}`} className='mt-3 mr-2 pl-0' key={i}>
                     {groupBlockComponent}
                 </Link> 
             );
             groups.push(
-                <Route exact path={`/${group}`}>
+                <Route exact path={`/${group}`} key={i}>
                     <Group name={group} courses={JSON.stringify(this.state.groups[group])} />
                 </Route>
             );
+            i++;
         }
 
         return (

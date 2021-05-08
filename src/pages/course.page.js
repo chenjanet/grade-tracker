@@ -1,7 +1,8 @@
 import axios from 'axios';
 import React from 'react';
+import GradeTable from '../components/gradeTable.component';
 
-import '../pages.css';
+import './pages.css';
 
 class Course extends React.Component {
     constructor(props) {
@@ -31,6 +32,7 @@ class Course extends React.Component {
         return (
             <div>
                 <h1>{this.props.name}</h1>
+                <div>Course average:&nbsp;{this.state.average}</div>
                 <GradeTable grades={this.state.grades} />
             </div>
         );

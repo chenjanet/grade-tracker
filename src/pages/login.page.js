@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Header from '../components/header.component';
 
-import '../pages.css';
+import './pages.css';
 
 async function loginUser(creds) {
     return axios.post('http://localhost:5000/auth/login', creds)

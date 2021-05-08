@@ -7,7 +7,8 @@ const courseSchema = new Schema({
     groupname: { type: String, required: true },
     coursename: { type: String, required: true },
     grades: { type: Array, required: true },
-    average: { type: Number }
+    average: { type: Number },
+    weight: { type: Number }
 }, {
     timestamps: true
 });

@@ -13,13 +13,15 @@ router.route('/add').post((req, res) => {
     const coursename = req.body.coursename;
     const grades = req.body.grades;
     const average = req.body.average || 0;
+    const weight = req.body.weight || 1;
 
     const newCourse = new Course({
         username,
         groupname,
         coursename,
         grades,
-        average
+        average,
+        weight
     });
 
     newCourse.save()
@@ -46,6 +48,7 @@ router.route('/update/:id').post((req, res) => {
             course.coursename = req.body.coursename;
             course.grades = req.body.grades;
             course.average = req.body.avg || 0;
+            course.weight = req.body.weight || 1;
 
             course.save()
                 .then(() => res.json('Course updated.'))

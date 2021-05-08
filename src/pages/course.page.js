@@ -28,15 +28,10 @@ class Course extends React.Component {
     }
 
     render() {
-        let tableContents = [];
-        for (let grade in this.state.grades) {
-            tableContents.push();
-        }
-        let gradeTable = (<table className='gradeTable'>{tableContents}</table>);
         return (
             <div>
                 <h1>{this.props.name}</h1>
-                {gradeTable}
+                <GradeTable grades={this.state.grades} />
             </div>
         );
     }

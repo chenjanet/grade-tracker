@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
 import CourseBlock from '../../components/courseBlock/courseBlock.component';
 import Course from '../course/course.page';
 
@@ -24,7 +24,7 @@ class Group extends React.Component {
             );
             courses.push(
                 <Route exact path={`/${this.state.courses[course].course}`}>
-                    <Course name={this.state.courses[course].course} average={this.state.courses[course].average} />
+                    <Course name={this.state.courses[course].course} average={this.state.courses[course].average} id={this.state.courses[course].cid} />
                 </Route>
             );
         }

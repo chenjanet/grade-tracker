@@ -13,18 +13,17 @@ function App() {
   if (!token) {
     return (
       <BrowserRouter>
-          <Switch>
-            <Route path='/login'>
-              <Login setToken={setToken} />
-            </Route>
-            <Route path='/register'>
-              <Register setToken={setToken} />
-            </Route>
-          </Switch>
-          <Redirect to='/login' />
-        </BrowserRouter>
+        <Switch>
+          <Route path='/login'>
+            <Login setToken={setToken} />
+          </Route>
+          <Route path='/register'>ss
+            <Register setToken={setToken} />
+          </Route>
+        </Switch>
+        <Redirect to='/login' />
+      </BrowserRouter>
     );
-      
   }
 
   return (

@@ -1,8 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
-import GroupBlock from '../../components/groupBlock/groupBlock.component';
-import Group from '../../pages/group/group.page';
+import GroupBlock from '../components/groupBlock.component';
+import Group from './group.page';
 
 import '../pages.css';
 

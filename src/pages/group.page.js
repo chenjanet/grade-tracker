@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
-import CourseBlock from '../../components/courseBlock/courseBlock.component';
-import Course from '../course/course.page';
+import CourseBlock from '../components/courseBlock.component';
+import Course from './course.page';
 
 import '../pages.css';
 

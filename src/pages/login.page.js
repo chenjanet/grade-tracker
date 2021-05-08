@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import Header from '../../components/header/header.component';
+import Header from '../components/header.component';
 
 import '../pages.css';
 

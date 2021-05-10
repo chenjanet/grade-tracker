@@ -21,10 +21,12 @@ connection.once('open', () => {
 });
 
 const usersRouter = require('./routes/users');
+const groupsRouter = require('./routes/groups');
 const coursesRouter = require('./routes/courses');
 const authRouter = require('./routes/auth');
 
 app.use('/users', usersRouter);
+app.use('/groups', groupsRouter);
 app.use('/courses', coursesRouter);
 app.use('/auth', authRouter);
 

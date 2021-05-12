@@ -30,7 +30,7 @@ router.route('/add').post((req, res) => {
             res.json('Course added!');
             Group.findOneAndUpdate(
                 { 'groupname': req.body.groupname }, 
-                { $addToSet: { "courses": req.body.coursename }}
+                { $addToSet: { "courses": req.body.coursename } }
             );
         })
         .catch(err => res.status(400).json('Error: ' + err));

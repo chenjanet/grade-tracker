@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
 import CourseBlock from '../components/courseBlock.component';
 import Course from './course.page';
@@ -9,21 +10,30 @@ class Group extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            courses: JSON.parse(this.props.courses),
+            courses: this.props.courses,
             average: 0
         };
     }
 
     componentDidMount() {
-        let groupAverage = 0, weightTotal = 0;
-        for (let course in this.state.courses) {
-            groupAverage += this.state.courses[course].average * this.state.courses[course].weight;
-            weightTotal += this.state.courses[course].weight;
-        }
-        groupAverage = (weightTotal != 0) ? groupAverage / weightTotal : 0;
-        this.setState({
-            average: groupAverage
-        })
+        axios.get(`http://localhost:5000/courses/${this.props.name}`)
+        .then(res => {
+            let courseData = res.data;
+            let groupAverage = 0, weightTotal = 0, groupCourses = [];
+            for (let course in courseData) {
+                groupCourses.push(
+                    { course: courseData[course].coursename, cid: courseData[course]._id, average: courseData[course].average }
+                );
+                groupAverage += courseData[course].average * courseData[course].weight;
+                weightTotal += courseData[course].weight;
+            }
+            groupAverage = (weightTotal != 0) ? groupAverage / weightTotal : 0;
+            this.setState({
+                average: groupAverage,
+                courses: groupCourses
+            });
+        });
+        
     }
 
     render() {

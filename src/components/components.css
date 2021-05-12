@@ -1,3 +1,7 @@
 .groupBlock, .courseBlock {
     height: 100%;
 }
+
+.newGroupAdder {
+    margin-top: 1rem;
+}

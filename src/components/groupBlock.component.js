@@ -5,7 +5,7 @@ export default function groupBlock(props) {
     let courseNames = [];
     let courseList = JSON.parse(props.courses), i = 0;
     for (let course in courseList) {
-        courseNames.push(<div key={i}>{courseList[course].course}</div>);
+        courseNames.push(<div key={i}>{courseList[course]}</div>);
         i++;
     }
     return (

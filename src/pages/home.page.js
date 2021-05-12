@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
 import GroupBlock from '../components/groupBlock.component';
+import NewGroupAdder from '../components/newGroupAdder.component';
 import Group from './group.page';
 
 import './pages.css';
@@ -12,33 +13,30 @@ class Home extends React.Component {
         this.state = {
             groups: {}
         };
+        this.addNewGroup = this.addNewGroup.bind(this);
     }
 
     componentDidMount() {
-        axios.get(`http://localhost:5000/courses`)
+        axios.get(`http://localhost:5000/groups`)
             .then(res => {
-                let courseData = res.data;
+                let groupData = res.data;
                 let username = localStorage.getItem('user');
-                let courseGroups = {};
-                for (let i = 0; i < courseData.length; i++) {
-                    if (courseData[i].username != username) {
+                let courseGroups = [];
+                for (let i = 0; i < groupData.length; i++) {
+                    if (groupData[i].username !== username) {
                         continue;
                     }
-                    if (!courseGroups[courseData[i].groupname]) {
-                        courseGroups[courseData[i].groupname] = [
-                            { "course": courseData[i].coursename, "cid": courseData[i]._id, "average": courseData[i].average, "weight": courseData[i].weight }
-                        ];
-                    } else {
-                        courseGroups[courseData[i].groupname].push(
-                            { "course": courseData[i].coursename, "cid": courseData[i]._id, "average": courseData[i].average, "weight": courseData[i].weight }
-                        );
-                    }
+                    courseGroups[groupData[i].groupname] = groupData[i].courses;
                 }
                 this.setState({
                     groups: courseGroups
                 });
             })
             .catch(err => console.error('Error: ' + err));
+    }
+
+    addNewGroup() {
+        console.log("Add new group");
     }
 
     render() {
@@ -65,7 +63,10 @@ class Home extends React.Component {
                         {groups}
                         <Route path='/'>
                             <h1>Course groups</h1>
-                            <div className="groups-wrapper">{groupBlocks}</div>
+                            <div className="groups-wrapper">
+                                {groupBlocks}
+                                <NewGroupAdder onclick={this.addNewGroup}/>
+                            </div>
                         </Route>
                     </Switch>
                 </BrowserRouter>

@@ -1,5 +1,6 @@
 const router = require('express').Router();
 let Course = require('../models/course.model');
+let Group = require('../models/group.model');
 
 router.route('/').get((req, res) => {
     Course.find()
@@ -25,7 +26,13 @@ router.route('/add').post((req, res) => {
     });
 
     newCourse.save()
-        .then(() => res.json('Course added!'))
+        .then(() => {
+            res.json('Course added!');
+            Group.findOneAndUpdate(
+                { 'groupname': req.body.groupname }, 
+                { $addToSet: { "courses": req.body.coursename }}
+            );
+        })
         .catch(err => res.status(400).json('Error: ' + err));
 });
 

@@ -10,9 +10,13 @@ input {
 button {
     border: none;
     border-radius: 0!important;
-    background-color: #343B3F;
+    background-color: #333C3F;
     color: #FFF;
     padding: 0.25em 0.75em;
+}
+
+button:hover {
+    background-color: #000;
 }
 
 .register-form-wrapper, .login-form-wrapper {

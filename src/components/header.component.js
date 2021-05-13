@@ -2,11 +2,9 @@ import React from 'react';
 
 function Header(props) {
     return (
-        <nav className='navbar navbar-light bg-light'>
-            <div className='row col-12 d-flex justify-content-center'>
-                <span className='h3'>{props.text}</span>
-            </div>
-        </nav>
+        <div className='pt-1 pb-1 pl-2 pr-2 header-wrapper'>
+            <h3>{props.text}</h3>
+        </div>
     )
 }
 

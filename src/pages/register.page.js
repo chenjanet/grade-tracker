@@ -50,10 +50,10 @@ export default function Register({setToken}) {
                             <input type='password' className='form-control' id='registerConfirmPassword' placeholder='Confirm password' onChange={e => setConfirmPassword(e.target.value)} />
                         </div>
                         <p id='passwordsMatch'>{passwordsMatch}</p>
-                        <button type='submit' className='btn btn-dark'>Sign up</button>
+                        <button type='submit'>Sign up</button>
                     </form>
                 </div>
-                <Link to='/login'>Login a preexisting account</Link>
+                <Link to='/login'>Log in</Link>
             </div>
             
         </div>

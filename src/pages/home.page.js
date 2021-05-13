@@ -62,7 +62,7 @@ class Home extends React.Component {
                     <Switch>
                         {groups}
                         <Route path='/'>
-                            <h1>Course groups</h1>
+                            <h1>Terms</h1>
                             <div className="groups-wrapper">
                                 {groupBlocks}
                                 <NewGroupAdder onclick={this.addNewGroup}/>

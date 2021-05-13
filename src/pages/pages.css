@@ -2,6 +2,19 @@
     font-weight: 500!important;
 }
 
+input {
+    border: 1px solid #000!important;
+    border-radius: 0px!important;
+}
+
+button {
+    border: none;
+    border-radius: 0!important;
+    background-color: #343B3F;
+    color: #FFF;
+    padding: 0.25em 0.75em;
+}
+
 .register-form-wrapper, .login-form-wrapper {
     display: flex;
     flex-direction: column;
@@ -17,7 +30,7 @@
 }
 
 .register-wrapper a, .login-wrapper a {
-    margin-left: -32%;
+    float: left;
     color: #000;
     font-weight: 700;
 }

@@ -38,10 +38,10 @@ export default function Login({setToken}) {
                             <label htmlFor='password'>Password</label>
                             <input type='password' className='form-control' id='loginPassword' placeholder='Password' onChange={e => setPassword(e.target.value)} />
                         </div>
-                        <button type='submit' className='btn btn-dark'>Log in</button>
+                        <button type='submit'>Log in</button>
                     </form>
                 </div>
-                <Link to='/register'>Register a new account</Link>
+                <Link to='/register'>Sign up</Link>
             </div>
             
         </div>

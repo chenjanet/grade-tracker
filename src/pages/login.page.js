@@ -27,20 +27,23 @@ export default function Login({setToken}) {
     return(
         <div className='login-wrapper'>
             <Header text='Login' />
-            <div className='card login-card mt-2 pt-3 pb-3 col-8 mx-auto hv-center justify-content-center'>
-                <form onSubmit={handleSubmit}> 
-                    <div className='form-group text-left'>
-                        <label htmlFor='username'>Username</label>
-                        <input type='text' className='form-control' id='loginUsername' placeholder='Enter username' onChange={e => setUsername(e.target.value)} />
-                    </div>
-                    <div className='form-group text-left'>
-                        <label htmlFor='password'>Password</label>
-                        <input type='password' className='form-control' id='loginPassword' placeholder='Password' onChange={e => setPassword(e.target.value)} />
-                    </div>
-                    <button type='submit' className='btn btn-dark'>Log in</button>
-                </form>
+            <div className='login-form-wrapper'>
+                <div className='card login-card mt-2 mb-2 pt-3 pb-3 pr-3 pl-3'>
+                    <form onSubmit={handleSubmit}> 
+                        <div className='form-group text-left'>
+                            <label htmlFor='username'>Username</label>
+                            <input type='text' className='form-control' id='loginUsername' placeholder='Enter username' onChange={e => setUsername(e.target.value)} />
+                        </div>
+                        <div className='form-group text-left'>
+                            <label htmlFor='password'>Password</label>
+                            <input type='password' className='form-control' id='loginPassword' placeholder='Password' onChange={e => setPassword(e.target.value)} />
+                        </div>
+                        <button type='submit' className='btn btn-dark'>Log in</button>
+                    </form>
+                </div>
+                <Link to='/register'>Register a new account</Link>
             </div>
-            <Link to='/register'>Register a new account</Link>
+            
         </div>
     );
 }

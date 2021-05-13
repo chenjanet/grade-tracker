@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React from 'react';
+import LogoutButton from '../components/logoutButton.component';
 import GradeTable from '../components/gradeTable.component';
 
 import './pages.css';
@@ -31,6 +32,7 @@ class Course extends React.Component {
     render() {
         return (
             <div>
+                <LogoutButton />
                 <h1>{this.props.name}</h1>
                 <div>Course average:&nbsp;{this.state.average}</div>
                 <GradeTable grades={this.state.grades} />

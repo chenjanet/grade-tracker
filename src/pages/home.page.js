@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
+import LogoutButton from '../components/logoutButton.component';
 import GroupBlock from '../components/groupBlock.component';
 import NewGroupAdder from '../components/newGroupAdder.component';
 import Group from './group.page';
@@ -62,6 +63,7 @@ class Home extends React.Component {
                     <Switch>
                         {groups}
                         <Route path='/'>
+                            <LogoutButton />
                             <h1>Terms</h1>
                             <div className="groups-wrapper">
                                 {groupBlocks}

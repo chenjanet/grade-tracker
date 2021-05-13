@@ -9,7 +9,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
 
+.logoutButton-wrapper {
+    float: right;
 }
 
 .groupBlock, .courseBlock {

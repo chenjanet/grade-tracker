@@ -17,7 +17,7 @@ function App() {
           <Route path='/login'>
             <Login setToken={setToken} />
           </Route>
-          <Route path='/register'>ss
+          <Route path='/register'>
             <Register setToken={setToken} />
           </Route>
         </Switch>

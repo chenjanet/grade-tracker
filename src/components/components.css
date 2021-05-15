@@ -5,6 +5,10 @@
     box-shadow: 5px 5px #000;
 }
 
+.fa-plus {
+    transform: scale(0.75);
+}
+
 .header-wrapper {
     display: flex;
     align-items: center;
@@ -16,7 +20,7 @@
 }
 
 .logoutButton:hover {
-    background-color: #333C3F;
+    background-color: #000;
 }
 
 .groupBlock, .courseBlock {

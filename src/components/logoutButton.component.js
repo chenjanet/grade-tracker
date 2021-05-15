@@ -1,4 +1,6 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import './components.css';
 
 export default function LogoutButton() {
@@ -9,7 +11,7 @@ export default function LogoutButton() {
 
     return (
         <div className='logoutButton-wrapper'>
-            <button className='logoutButton' onClick={logout}>Log out</button>
+            <button className='logoutButton' onClick={logout}><FontAwesomeIcon icon='sign-out-alt' /> Log out</button>
         </div>
     )
 }

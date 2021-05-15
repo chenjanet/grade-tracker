@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Header from '../components/header.component';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import './pages.css';
 
@@ -38,7 +39,7 @@ export default function Login({setToken}) {
                             <label htmlFor='password'>Password</label>
                             <input type='password' className='form-control' id='loginPassword' placeholder='Password' onChange={e => setPassword(e.target.value)} />
                         </div>
-                        <button type='submit'>Log in</button>
+                        <button type='submit'><FontAwesomeIcon icon='sign-in-alt' /> Log in</button>
                     </form>
                 </div>
                 <Link to='/register'>Sign up</Link>

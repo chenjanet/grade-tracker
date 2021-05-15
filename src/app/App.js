@@ -7,6 +7,8 @@ import Register from '../pages/register.page';
 import Home from '../pages/home.page';
 import useToken from './useToken';
 
+import '../fontAwesome';
+
 function App() {
   const { token, setToken } = useToken();
 

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Header from '../components/header.component';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import './pages.css';
 
@@ -50,7 +51,7 @@ export default function Register({setToken}) {
                             <input type='password' className='form-control' id='registerConfirmPassword' placeholder='Confirm password' onChange={e => setConfirmPassword(e.target.value)} />
                         </div>
                         <p id='passwordsMatch'>{passwordsMatch}</p>
-                        <button type='submit'>Sign up</button>
+                        <button type='submit'><FontAwesomeIcon icon='sign-in-alt' /> Sign up</button>
                     </form>
                 </div>
                 <Link to='/login'>Log in</Link>

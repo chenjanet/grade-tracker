@@ -69,12 +69,12 @@ button.close:hover {
 }
 
 .courses-wrapper a, .groups-wrapper a {
-    max-width: 24%;
+    max-width: 24.25%;
     width: 100%;
     text-decoration: none!important;
 }
 
-.courses-wrapper:last-child, .groups-wrapper:last-child {
+.courses-wrapper > :nth-child(4n+4), .groups-wrapper > :nth-child(4n+4) {
     margin-right: 0;
 }
 

@@ -17,7 +17,6 @@
 
 .logoutButton-wrapper {
     float: right;
-    margin-right: 1%;
 }
 
 .logoutButton:hover {
@@ -27,7 +26,6 @@
 .newGroupAdder {
     min-width: 15%;
     width: 100%;
-    margin-right: 1%;
 }
 
 .groupBlockLink, .courseBlockLink {

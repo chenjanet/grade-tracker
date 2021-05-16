@@ -14,7 +14,7 @@ class Home extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            groups: {},
+            groups: [],
             modalShow: false
         };
         this.handleOpenModal = this.handleOpenModal.bind(this);
@@ -27,7 +27,7 @@ class Home extends React.Component {
             .then(res => {
                 let groupData = res.data;
                 let username = localStorage.getItem('user');
-                let courseGroups = [];
+                let courseGroups = {};
                 for (let i = 0; i < groupData.length; i++) {
                     if (groupData[i].username !== username) {
                         continue;
@@ -54,13 +54,20 @@ class Home extends React.Component {
     }
 
     addNewGroup() {
-        let groupName = document.getElementById('groupName').value;
-        if (groupName === '') {
+        let groupname = document.getElementById('groupName').value;
+        if (groupname === '') {
             return;
         }
+        let courseGroups = this.state.groups;
+        let username = localStorage.getItem('user');
+        courseGroups[groupname] = [];
         this.setState({
-            modalShow: false
+            modalShow: false,
+            groups: courseGroups
         });
+        axios.post(`http://localhost:5000/groups/add`, { username, groupname, courses: [] })
+            .then(() => { console.log('Group successfully created!'); })
+            .catch(err => console.error('Error: ' + err));
     }
 
     render() {

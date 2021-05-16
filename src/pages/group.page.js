@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
+import { Modal } from 'react-bootstrap';
+
 import LogoutButton from '../components/logoutButton.component';
 import CourseBlock from '../components/courseBlock.component';
 import Course from './course.page';
@@ -67,7 +69,6 @@ class Group extends React.Component {
                         </Route>
                     </Switch>
                 </BrowserRouter>
-                
             </div>
         );
     }

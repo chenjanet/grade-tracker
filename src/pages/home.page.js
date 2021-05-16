@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
+import { Modal } from 'react-bootstrap';
+
 import LogoutButton from '../components/logoutButton.component';
 import GroupBlock from '../components/groupBlock.component';
 import NewGroupAdder from '../components/newGroupAdder.component';
@@ -12,8 +14,11 @@ class Home extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            groups: {}
+            groups: {},
+            modalShow: false
         };
+        this.handleOpenModal = this.handleOpenModal.bind(this);
+        this.handleCloseModal = this.handleCloseModal.bind(this);
         this.addNewGroup = this.addNewGroup.bind(this);
     }
 
@@ -36,8 +41,23 @@ class Home extends React.Component {
             .catch(err => console.error('Error: ' + err));
     }
 
+    handleOpenModal() {
+        this.setState({
+            modalShow: true
+        });
+    }
+
+    handleCloseModal() {
+        this.setState({
+            modalShow: false
+        });
+    }
+
     addNewGroup() {
         console.log("Add new group");
+        this.setState({
+            modalShow: false
+        });
     }
 
     render() {
@@ -67,11 +87,25 @@ class Home extends React.Component {
                             <h1>Terms</h1>
                             <div className="groups-wrapper">
                                 {groupBlocks}
-                                <NewGroupAdder onclick={this.addNewGroup}/>
+                                <NewGroupAdder onClick={this.handleOpenModal}/>
                             </div>
                         </Route>
                     </Switch>
                 </BrowserRouter>
+                <Modal show={this.state.modalShow} onHide={this.handleCloseModal}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Add new term</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <form onSubmit={this.addNewGroup}>
+
+                        </form>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <button className='secondary' onClick={this.handleCloseModal}>Cancel</button>
+                        <button type='submit'>Save</button>
+                    </Modal.Footer>
+                </Modal>
             </div>
         );
     }

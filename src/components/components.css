@@ -17,10 +17,21 @@
 
 .logoutButton-wrapper {
     float: right;
+    margin-right: 1%;
 }
 
 .logoutButton:hover {
     background-color: #000;
+}
+
+.newGroupAdder {
+    min-width: 15%;
+    width: 100%;
+    margin-right: 1%;
+}
+
+.groupBlockLink, .courseBlockLink {
+    margin-right: 1%;
 }
 
 .groupBlock, .courseBlock {

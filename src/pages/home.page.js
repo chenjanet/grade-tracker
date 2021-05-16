@@ -75,7 +75,7 @@ class Home extends React.Component {
         for (let group in this.state.groups) {
             let groupBlockComponent = <GroupBlock name={group} courses={JSON.stringify(this.state.groups[group])} />;
             groupBlocks.push(
-                <Link to={`/${group}`} className='mt-3 mr-2 pl-0' key={i}>
+                <Link to={`/${group}`} className='groupBlockLink mt-3 pl-0' key={i}>
                     {groupBlockComponent}
                 </Link> 
             );

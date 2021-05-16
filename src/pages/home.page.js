@@ -54,7 +54,10 @@ class Home extends React.Component {
     }
 
     addNewGroup() {
-        console.log("Add new group");
+        let groupName = document.getElementById('groupName').value;
+        if (groupName === '') {
+            return;
+        }
         this.setState({
             modalShow: false
         });
@@ -92,18 +95,18 @@ class Home extends React.Component {
                         </Route>
                     </Switch>
                 </BrowserRouter>
+
                 <Modal show={this.state.modalShow} onHide={this.handleCloseModal}>
                     <Modal.Header closeButton>
                         <Modal.Title>Add new term</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <form onSubmit={this.addNewGroup}>
-
-                        </form>
+                        <label htmlFor='groupName'>New term name</label>
+                        <input type='text' className='form-control' id='groupName' placeholder='Enter term name' />
                     </Modal.Body>
                     <Modal.Footer>
                         <button className='secondary' onClick={this.handleCloseModal}>Cancel</button>
-                        <button type='submit'>Save</button>
+                        <button onClick={this.addNewGroup}>Save</button>
                     </Modal.Footer>
                 </Modal>
             </div>

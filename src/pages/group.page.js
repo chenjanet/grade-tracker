@@ -28,7 +28,7 @@ class Group extends React.Component {
                 groupAverage += courseData[course].average * courseData[course].weight;
                 weightTotal += courseData[course].weight;
             }
-            groupAverage = (weightTotal != 0) ? groupAverage / weightTotal : 0;
+            groupAverage = (weightTotal !== 0) ? groupAverage / weightTotal : 0;
             this.setState({
                 average: groupAverage,
                 courses: groupCourses

@@ -26,12 +26,12 @@ router.route('/add').post((req, res) => {
     });
 
     newCourse.save()
-        .then(() => {
-            res.json('Course added!');
+        .then((course) => {
             Group.findOneAndUpdate(
-                { 'groupname': req.body.groupname }, 
-                { $addToSet: { 'courses': req.body.coursename } }
-            );
+                { "username": req.body.username, "groupname": req.body.groupname }, 
+                { $push: { "courses": req.body.coursename } }
+            )
+            res.json(course._id);
         })
         .catch(err => res.status(400).json('Error: ' + err));
 });
@@ -39,7 +39,6 @@ router.route('/add').post((req, res) => {
 router.route('/:groupname').get((req, res) => {
     Course.find({ "groupname": req.params.groupname })
         .then(courses => res.json(courses));
-
 });
 
 router.route('/:id').get((req, res) => {

@@ -1,11 +1,10 @@
 import React from 'react';
 import axios from 'axios';
 import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
-import { Modal } from 'react-bootstrap';
 
 import LogoutButton from '../components/logoutButton.component';
 import GroupBlock from '../components/groupBlock.component';
-import NewGroupAdder from '../components/newGroupAdder.component';
+import NewAdder from '../components/newAdder.component';
 import Group from './group.page';
 
 import './pages.css';
@@ -14,11 +13,8 @@ class Home extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            groups: [],
-            modalShow: false
+            groups: []
         };
-        this.handleOpenModal = this.handleOpenModal.bind(this);
-        this.handleCloseModal = this.handleCloseModal.bind(this);
         this.addNewGroup = this.addNewGroup.bind(this);
     }
 
@@ -41,23 +37,7 @@ class Home extends React.Component {
             .catch(err => console.error('Error: ' + err));
     }
 
-    handleOpenModal() {
-        this.setState({
-            modalShow: true
-        });
-    }
-
-    handleCloseModal() {
-        this.setState({
-            modalShow: false
-        });
-    }
-
-    addNewGroup() {
-        let groupname = document.getElementById('groupName').value;
-        if (groupname === '') {
-            return;
-        }
+    addNewGroup(groupname) {
         let courseGroups = this.state.groups;
         let username = localStorage.getItem('user');
         courseGroups[groupname] = [];
@@ -97,25 +77,11 @@ class Home extends React.Component {
                             <h1>Terms</h1>
                             <div className="groups-wrapper">
                                 {groupBlocks}
-                                <NewGroupAdder onClick={this.handleOpenModal}/>
+                                <NewAdder adderType={"term"} adderInputLabel={"Term name"} handleAddNew={this.addNewGroup}/>
                             </div>
                         </Route>
                     </Switch>
                 </BrowserRouter>
-
-                <Modal show={this.state.modalShow} onHide={this.handleCloseModal}>
-                    <Modal.Header closeButton>
-                        <Modal.Title>Add new term</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <label htmlFor='groupName'>New term name</label>
-                        <input type='text' className='form-control' id='groupName' placeholder='Enter term name' />
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <button className='secondary' onClick={this.handleCloseModal}>Cancel</button>
-                        <button onClick={this.addNewGroup}>Save</button>
-                    </Modal.Footer>
-                </Modal>
             </div>
         );
     }

@@ -1,10 +1,10 @@
 import React from 'react';
 import axios from 'axios';
 import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
-import { Modal } from 'react-bootstrap';
 
 import LogoutButton from '../components/logoutButton.component';
 import CourseBlock from '../components/courseBlock.component';
+import NewAdder from '../components/newAdder.component';
 import Course from './course.page';
 
 import './pages.css';
@@ -15,18 +15,20 @@ class Group extends React.Component {
         this.state = {
             courses: this.props.courses,
             average: 0,
-            modalShow: false
         };
-        this.handleOpenModal = this.handleOpenModal.bind(this);
-        this.handleCloseModal = this.handleCloseModal.bind(this);
+        this.addNewCourse = this.addNewCourse.bind(this);
     }
 
     componentDidMount() {
         axios.get(`http://localhost:5000/courses/${this.props.name}`)
         .then(res => {
             let courseData = res.data;
+            let username = localStorage.getItem('user');
             let groupAverage = 0, weightTotal = 0, groupCourses = [];
             for (let course in courseData) {
+                if (courseData[course].username !== username) {
+                    continue;
+                }
                 groupCourses.push(
                     { course: courseData[course].coursename, cid: courseData[course]._id, average: courseData[course].average }
                 );
@@ -38,20 +40,25 @@ class Group extends React.Component {
                 average: groupAverage,
                 courses: groupCourses
             });
-        });
-        
+        });  
     }
 
-    handleOpenModal() {
-        this.setState({
-            modalShow: true
-        });
-    }
-
-    handleCloseModal() {
-        this.setState({
-            modalShow: false
-        });
+    addNewCourse(coursename) {
+        let username = localStorage.getItem('user');
+        let groupCourses = this.state.courses;
+        let groupAverage = this.state.groupAverage * groupCourses.length;
+        axios.post(`http://localhost:5000/courses/add`, { username, groupname: this.props.name, coursename, grades: [], average: 0, weight: 1 })
+            .then((res) => { 
+                groupCourses.push(
+                    { course: coursename, cid: res.data, average: 0 }
+                );
+                groupAverage = (groupAverage === 0) ? groupAverage / groupCourses.length : 0;
+                this.setState({
+                    courses: groupCourses,
+                    average: groupAverage
+                });
+             })
+            .catch(err => console.error('Error: ' + err));
     }
 
     render() {
@@ -81,22 +88,10 @@ class Group extends React.Component {
                             <h1>{this.props.name}</h1>
                             <div>Overall average:&nbsp;{this.state.average}</div>
                             <div className='courses-wrapper'>{courseBlocks}</div>
+                            <NewAdder adderType={"course"} adderInputLabel={"Course name"} handleAddNew={this.addNewCourse}/>
                         </Route>
                     </Switch>
                 </BrowserRouter>
-                <Modal show={this.state.modalShow} onHide={this.handleCloseModal}>
-                    <Modal.Header closeButton>
-                        <Modal.Title>Add new term</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <label htmlFor='groupName'>New term name</label>
-                        <input type='text' className='form-control' id='groupName' placeholder='Enter term name' />
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <button className='secondary' onClick={this.handleCloseModal}>Cancel</button>
-                        <button onClick={this.addNewGroup}>Save</button>
-                    </Modal.Footer>
-                </Modal>
             </div>
         );
     }

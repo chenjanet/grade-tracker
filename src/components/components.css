@@ -23,9 +23,10 @@
     background-color: #000;
 }
 
-.newGroupAdder {
+.newAdder {
     min-width: 15%;
     width: 100%;
+    margin-top: 1rem;
 }
 
 .groupBlockLink, .courseBlockLink {
@@ -36,17 +37,13 @@
     height: 100%;
 }
 
-.groupBlock, .courseBlock, .newGroupAdder {
+.groupBlock, .courseBlock, .newAdder {
     border: 2px solid #000;
-    border-radius: 0px;
+    border-radius: 0;
     box-shadow: 2.5px 2.5px #000;
 }
 
-.groupBlock:hover, .courseBlock:hover, .newGroupAdder:hover {
+.groupBlock:hover, .courseBlock:hover, .newAdder:hover {
     transform: translate(2.5px, 2.5px);
-    box-shadow: 0px 0px #FFF;
-}
-
-.newGroupAdder {
-    margin-top: 1rem;
+    box-shadow: 0 0 #FFF;
 }

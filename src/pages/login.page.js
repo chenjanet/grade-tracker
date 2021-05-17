@@ -33,11 +33,11 @@ export default function Login({setToken}) {
                     <form onSubmit={handleSubmit}> 
                         <div className='form-group text-left'>
                             <label htmlFor='username'>Username</label>
-                            <input type='text' className='form-control' id='loginUsername' placeholder='Enter username' onChange={e => setUsername(e.target.value)} />
+                            <input type='text' className='form-control' id='loginUsername' onChange={e => setUsername(e.target.value)} />
                         </div>
                         <div className='form-group text-left'>
                             <label htmlFor='password'>Password</label>
-                            <input type='password' className='form-control' id='loginPassword' placeholder='Password' onChange={e => setPassword(e.target.value)} />
+                            <input type='password' className='form-control' id='loginPassword' onChange={e => setPassword(e.target.value)} />
                         </div>
                         <button type='submit'><FontAwesomeIcon icon='sign-in-alt' /> Log in</button>
                     </form>

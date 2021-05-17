@@ -14,8 +14,11 @@ class Group extends React.Component {
         super(props);
         this.state = {
             courses: this.props.courses,
-            average: 0
+            average: 0,
+            modalShow: false
         };
+        this.handleOpenModal = this.handleOpenModal.bind(this);
+        this.handleCloseModal = this.handleCloseModal.bind(this);
     }
 
     componentDidMount() {
@@ -39,12 +42,24 @@ class Group extends React.Component {
         
     }
 
+    handleOpenModal() {
+        this.setState({
+            modalShow: true
+        });
+    }
+
+    handleCloseModal() {
+        this.setState({
+            modalShow: false
+        });
+    }
+
     render() {
         let courseBlocks = [], courses = [], i = 0;
         for (let course in this.state.courses) {
             let courseBlockComponent = <CourseBlock name={this.state.courses[course].course} average={this.state.courses[course].average} />;
             courseBlocks.push(
-                <Link to={`/${this.state.courses[course].course}`} className='mt-3 mr-2 pl-0' key={i}>
+                <Link to={`/${this.state.courses[course].course}`} className='mt-3 pl-0 courseBlockLink' key={i}>
                     {courseBlockComponent}
                 </Link>
             );
@@ -69,6 +84,19 @@ class Group extends React.Component {
                         </Route>
                     </Switch>
                 </BrowserRouter>
+                <Modal show={this.state.modalShow} onHide={this.handleCloseModal}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Add new term</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <label htmlFor='groupName'>New term name</label>
+                        <input type='text' className='form-control' id='groupName' placeholder='Enter term name' />
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <button className='secondary' onClick={this.handleCloseModal}>Cancel</button>
+                        <button onClick={this.addNewGroup}>Save</button>
+                    </Modal.Footer>
+                </Modal>
             </div>
         );
     }

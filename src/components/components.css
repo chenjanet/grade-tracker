@@ -16,15 +16,11 @@
 }
 
 .backButton {
-    margin-bottom: 5%;
+    margin-bottom: 1%;
 }
 
 .logoutButton-wrapper {
     float: right;
-}
-
-.logoutButton:hover {
-    background-color: #000;
 }
 
 .newAdder {

@@ -2,6 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
 
+import Home from './home.page';
+import BackButton from '../components/backButton.component';
 import LogoutButton from '../components/logoutButton.component';
 import CourseBlock from '../components/courseBlock.component';
 import NewAdder from '../components/newAdder.component';
@@ -83,7 +85,13 @@ class Group extends React.Component {
                 <BrowserRouter>
                     <Switch>
                         {courses}
+                        <Route exact path='/'>
+                            <Home />
+                        </Route>
                         <Route path='/'>
+                            <Link to='../'>
+                                <BackButton />
+                            </Link>
                             <LogoutButton />
                             <h1>{this.props.name}</h1>
                             <div>Overall average:&nbsp;{this.state.average}</div>

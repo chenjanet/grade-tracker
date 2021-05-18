@@ -15,6 +15,10 @@
     justify-content: center;
 }
 
+.backButton {
+    margin-bottom: 5%;
+}
+
 .logoutButton-wrapper {
     float: right;
 }

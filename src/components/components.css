@@ -5,7 +5,7 @@
     box-shadow: 5px 5px #000;
 }
 
-.fa-plus {
+.fa-plus, .fa-times {
     transform: scale(0.75);
 }
 
@@ -21,6 +21,18 @@
 
 .logoutButton-wrapper {
     float: right;
+}
+
+.deleteButton {
+    float: right;
+    border: 0!important;
+    box-shadow: none!important;
+    padding: 0 7.5px!important;
+}
+
+.deleteButton:hover {
+    transform: none!important;
+    background-color: #F25341;
 }
 
 .newAdder {

@@ -16,10 +16,6 @@ button:not(.close) {
     box-shadow: 2.5px 2.5px #000;
 }
 
-button.secondary{
-    background-color: #6C757D;
-}
-
 button:not(.close):hover {
     transform: translate(2.5px, 2.5px);
     box-shadow: 0 0 #FFF;

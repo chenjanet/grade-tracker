@@ -25,7 +25,7 @@
 
 .deleteButton {
     float: right;
-    border: 0!important;
+    border: 2px solid #FFF!important;
     box-shadow: none!important;
     padding: 0 7.5px!important;
 }
@@ -33,6 +33,15 @@
 .deleteButton:hover {
     transform: none!important;
     background-color: #F25341;
+    border: 2px solid #000!important;
+}
+
+.cancelButton:hover, .backButton:hover, .logoutButton:hover {
+    background-color: #949da6;
+}
+
+.saveButton:hover {
+    background-color: #4094ed;
 }
 
 .newAdder {
@@ -58,4 +67,8 @@
 .groupBlock:hover, .courseBlock:hover, .newAdder:hover {
     transform: translate(2.5px, 2.5px);
     box-shadow: 0 0 #FFF;
+}
+
+.newAdder:hover {
+    background-color: #4de36f;
 }

@@ -20,8 +20,8 @@ export default function NewAdder(props) {
                     <input type='text' className='form-control' id='adderInput' />
                 </Modal.Body>
                 <Modal.Footer>
-                    <button className='secondary' onClick={() => setModalShow(false)}>Cancel</button>
-                    <button onClick={() => {
+                    <button className='cancelButton' onClick={() => setModalShow(false)}>Cancel</button>
+                    <button className='saveButton' onClick={() => {
                         let adderInput = document.getElementById('adderInput').value;
                         if (adderInput === '') {
                             return;

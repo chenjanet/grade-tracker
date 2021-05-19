@@ -9,16 +9,16 @@ router.route('/').get((req, res) => {
 });
 
 router.route('/add').post((req, res) => {
-    const username = req.body.username;
-    const groupname = req.body.groupname;
+    const userid = req.body.userid;
+    const groupid = req.body.groupid;
     const coursename = req.body.coursename;
     const grades = req.body.grades;
     const average = req.body.average || 0;
     const weight = req.body.weight || 1;
 
     const newCourse = new Course({
-        username,
-        groupname,
+        userid,
+        groupid,
         coursename,
         grades,
         average,
@@ -27,17 +27,18 @@ router.route('/add').post((req, res) => {
 
     newCourse.save()
         .then((course) => {
-            Group.findOneAndUpdate(
-                { "username": req.body.username, "groupname": req.body.groupname }, 
-                { $push: { "courses": req.body.coursename } }
-            )
+            Group.findById(req.body.groupid)
+                .then((group) => {
+                    group.courses.push(req.body.coursename);
+                    group.save();
+                });
             res.json(course._id);
         })
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.route('/:groupname').get((req, res) => {
-    Course.find({ "groupname": req.params.groupname })
+router.route('/:groupid').get((req, res) => {
+    Course.find({ "groupid": req.params.groupid })
         .then(courses => res.json(courses));
 });
 
@@ -52,11 +53,22 @@ router.route('/:id').delete((req, res) => {
         .then(() => res.json('Course deleted.'));
 });
 
+router.route('/deleteByGroup/:groupid').delete((req, res) => {
+    Course.find({ "groupid": req.params.groupid })
+        .then(async (courses) => {
+            res.json(courses);
+            for (let course in courses) {
+                await Course.findByIdAndDelete(courses[course]._id);
+            }
+        })
+        .catch(err => res.status(400).json('Error: ' + err));
+});
+
 router.route('/update/:id').post((req, res) => {
     Course.findById(req.params.id)
         .then((course) => {
-            course.username = req.body.username;
-            course.groupname = req.body.groupname;
+            course.userid = req.body.userid;
+            course.groupid = req.body.groupid;
             course.coursename = req.body.coursename;
             course.grades = req.body.grades;
             course.average = req.body.avg || 0;

@@ -7,7 +7,7 @@ router.route('/login').post((req, res) => {
             if (user.password === req.body.password) {
                 res.send({ 
                     token: 'test123',
-                    user: req.body.username
+                    user: user._id
                 });
             } else {
                 res.send({ 
@@ -25,7 +25,12 @@ router.route('/register').post((req, res) => {
     const newUser = new User({username, password});
 
     newUser.save()
-        .then(() => res.send({ token: 'test123' }))
+        .then(user => {
+            res.send({ 
+                token: 'test123',
+                user: user._id
+            }); 
+        })
         .catch(err => res.status(400).json('Error: ' + err));
 });
 

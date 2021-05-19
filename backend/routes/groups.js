@@ -8,18 +8,21 @@ router.route('/').get((req, res) => {
 });
 
 router.route('/add').post((req, res) => {
-    const username = req.body.username;
+    const userid = req.body.userid;
     const groupname = req.body.groupname;
     const courses = req.body.courses;
 
     const newGroup = new Group({
-        username,
+        userid,
         groupname,
         courses
     });
 
     newGroup.save()
-        .then(() => res.json('Group added!'))
+        .then(group => {
+            res.json(group._id);
+            console.log(res.json);
+        })
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
@@ -31,13 +34,17 @@ router.route('/:id').get((req, res) => {
 
 router.route('/:id').delete((req, res) => {
     Group.findByIdAndDelete(req.params.id)
-        .then(() => res.json('Group deleted.'));
+        .then(() => {
+            
+            res.json('Group deleted.')
+        })
+        .catch(err => res.status(400).json('Error: ' + err));
 });
 
 router.route('/update/:id').post((req, res) => {
     Group.findById(req.params.id)
         .then((group) => {
-            group.username = req.body.username;
+            group.userid = req.body.userid;
             group.groupname = req.body.groupname;
             group.courses = req.body.courses;
 

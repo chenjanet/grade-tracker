@@ -25,7 +25,7 @@
 
 .deleteButton {
     float: right;
-    border: 2px solid #FFF!important;
+    border: 2px solid #000!important;
     box-shadow: none!important;
     padding: 0 7.5px!important;
 }
@@ -33,7 +33,6 @@
 .deleteButton:hover {
     transform: none!important;
     background-color: #F25341;
-    border: 2px solid #000!important;
 }
 
 .cancelButton:hover, .backButton:hover, .logoutButton:hover {

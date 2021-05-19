@@ -16,19 +16,23 @@ class Home extends React.Component {
             groups: []
         };
         this.addNewGroup = this.addNewGroup.bind(this);
+        this.deleteGroup = this.deleteGroup.bind(this);
     }
 
     componentDidMount() {
         axios.get(`http://localhost:5000/groups`)
             .then(res => {
                 let groupData = res.data;
-                let username = localStorage.getItem('user');
+                let userid = localStorage.getItem('user');
                 let courseGroups = {};
                 for (let i = 0; i < groupData.length; i++) {
-                    if (groupData[i].username !== username) {
+                    if (groupData[i].userid !== userid) {
                         continue;
                     }
-                    courseGroups[groupData[i].groupname] = groupData[i].courses;
+                    courseGroups[groupData[i].groupname] = {
+                        'courses': groupData[i].courses,
+                        'gid': groupData[i]._id
+                    };
                 }
                 this.setState({
                     groups: courseGroups
@@ -39,21 +43,42 @@ class Home extends React.Component {
 
     addNewGroup(groupname) {
         let courseGroups = this.state.groups;
-        let username = localStorage.getItem('user');
-        courseGroups[groupname] = [];
+        let userid = localStorage.getItem('user');
+        axios.post(`http://localhost:5000/groups/add`, { userid, groupname, courses: [] })
+            .then(data => { 
+                courseGroups[groupname] = {
+                    'courses': [],
+                    'gid': data.data
+                };
+                this.setState({
+                    modalShow: false,
+                    groups: courseGroups
+                });
+             })
+            .catch(err => console.error('Error: ' + err));
+    }
+
+    async deleteGroup(e, groupId) {
+        let courseGroups = this.state.groups;
+        e.preventDefault();
+        e.stopPropagation();
+        await axios.delete(`http://localhost:5000/groups/${groupId}`);
+        await axios.delete(`http://localhost:5000/courses/deleteByGroup/${groupId}`);
+        for (let group in courseGroups) {
+            if (courseGroups[group].gid === groupId) {
+                delete courseGroups[group];
+                break;
+            }
+        }
         this.setState({
-            modalShow: false,
             groups: courseGroups
         });
-        axios.post(`http://localhost:5000/groups/add`, { username, groupname, courses: [] })
-            .then(() => { console.log('Group successfully created!'); })
-            .catch(err => console.error('Error: ' + err));
     }
 
     render() {
         let groupBlocks = [], groups = [], i = 0;
         for (let group in this.state.groups) {
-            let groupBlockComponent = <GroupBlock name={group} courses={JSON.stringify(this.state.groups[group])} />;
+            let groupBlockComponent = <GroupBlock name={group} groupId={this.state.groups[group].gid} deleteComponent={this.deleteGroup} courses={JSON.stringify(this.state.groups[group].courses)} />;
             groupBlocks.push(
                 <Link to={`/${group}`} className='groupBlockLink mt-3 pl-0' key={i}>
                     {groupBlockComponent}
@@ -61,7 +86,7 @@ class Home extends React.Component {
             );
             groups.push(
                 <Route exact path={`/${group}`} key={i}>
-                    <Group name={group} courses={JSON.stringify(this.state.groups[group])} />
+                    <Group name={group} groupId={this.state.groups[group].gid} />
                 </Route>
             );
             i++;

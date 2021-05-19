@@ -19,16 +19,17 @@ class Group extends React.Component {
             average: 0,
         };
         this.addNewCourse = this.addNewCourse.bind(this);
+        this.deleteCourse = this.deleteCourse.bind(this);
     }
 
     componentDidMount() {
-        axios.get(`http://localhost:5000/courses/${this.props.name}`)
+        axios.get(`http://localhost:5000/courses/${this.props.groupId}`)
         .then(res => {
             let courseData = res.data;
-            let username = localStorage.getItem('user');
+            let userid = localStorage.getItem('user');
             let groupAverage = 0, weightTotal = 0, groupCourses = [];
             for (let course in courseData) {
-                if (courseData[course].username !== username) {
+                if (courseData[course].userid !== userid) {
                     continue;
                 }
                 groupCourses.push(
@@ -46,10 +47,11 @@ class Group extends React.Component {
     }
 
     addNewCourse(coursename) {
-        let username = localStorage.getItem('user');
+        let userid = localStorage.getItem('user');
+        let groupid = this.props.groupId;
         let groupCourses = this.state.courses;
         let groupAverage = this.state.groupAverage * groupCourses.length;
-        axios.post(`http://localhost:5000/courses/add`, { username, groupname: this.props.name, coursename, grades: [], average: 0, weight: 1 })
+        axios.post(`http://localhost:5000/courses/add`, { userid, groupid, coursename, grades: [], average: 0, weight: 1 })
             .then((res) => { 
                 groupCourses.push(
                     { course: coursename, cid: res.data, average: 0 }
@@ -63,10 +65,31 @@ class Group extends React.Component {
             .catch(err => console.error('Error: ' + err));
     }
 
+    async deleteCourse(e, courseId) {
+        e.preventDefault();
+        e.stopPropagation();
+        let groupCourses = this.state.courses;
+        await axios.delete(`http://localhost:5000/courses/${courseId}`);
+        let userid = localStorage.getItem('user');
+        let groupname = this.props.name;
+        let newCourses = [];
+        for (let course in groupCourses) {
+            if (groupCourses[course].cid === courseId) {
+                delete groupCourses[course];
+            } else {
+                newCourses.push(groupCourses[course].course);
+            }
+        }
+        await axios.post(`http://localhost:5000/groups/update/${this.props.groupId}`, { userid, groupname, courses: newCourses });
+        this.setState({
+            courses: groupCourses
+        });
+    }
+
     render() {
         let courseBlocks = [], courses = [], i = 0;
         for (let course in this.state.courses) {
-            let courseBlockComponent = <CourseBlock name={this.state.courses[course].course} average={this.state.courses[course].average} />;
+            let courseBlockComponent = <CourseBlock name={this.state.courses[course].course} average={this.state.courses[course].average} courseId={this.state.courses[course].cid} deleteComponent={this.deleteCourse} />;
             courseBlocks.push(
                 <Link to={`/${this.state.courses[course].course}`} className='mt-3 pl-0 courseBlockLink' key={i}>
                     {courseBlockComponent}
@@ -74,7 +97,7 @@ class Group extends React.Component {
             );
             courses.push(
                 <Route exact path={`/${this.state.courses[course].course}`} key={i}>
-                    <Course name={this.state.courses[course].course} average={this.state.courses[course].average} id={this.state.courses[course].cid} />
+                    <Course name={this.state.courses[course].course} average={this.state.courses[course].average} courseId={this.state.courses[course].cid} />
                 </Route>
             );
             i++;

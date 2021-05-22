@@ -1,26 +1,23 @@
 import React from 'react';
+import { useTable } from 'react-table';
+
 import './components.css';
 
-class GradeTable extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            grades: []
-        }
-    }
+export default function GradeTable({ grades }) {
+    const {
+        getTableProps, 
+        getTableBodyProps,
+        rows, 
+        prepareRow 
+      } = useTable({
+        columns,
+        data
+      });
 
-    componentDidMount() {
-        let courseId = this.props.courseId;
-        
-    }
+    return(
+        <table {...getTableProps}>
 
-    render() {
-        return(
-            <div className='gradeTable-wrapper'>
-                Grade table will go here
-            </div>
-        );
-    }
+        </table>
+    );
 }
-
-export default GradeTable;
+        

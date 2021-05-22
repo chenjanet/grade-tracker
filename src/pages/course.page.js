@@ -11,6 +11,7 @@ class Course extends React.Component {
         this.state = {
             average: this.props.average
         };
+        this.addGrade = this.addGrade.bind(this);
     }
 
     componentDidMount() {
@@ -28,13 +29,17 @@ class Course extends React.Component {
             .catch(err => console.error('Error: ' + err));
     }
 
+    addGrade(grade, weight) {
+
+    }
+
     render() {
         return (
             <div>
                 <LogoutButton />
                 <h1>{this.props.name}</h1>
                 <div>Course average:&nbsp;{this.state.average}</div>
-                <GradeTable grades={this.state.grades} />
+                <GradeTable grades={this.state.grades} addGrade={this.addGrade} />
             </div>
         );
     }

@@ -10,7 +10,7 @@ class GradeTable extends React.Component {
     }
 
     componentDidMount() {
-        let courseid = this.props.courseid;
+        let courseId = this.props.courseId;
         
     }
 

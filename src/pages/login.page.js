@@ -27,7 +27,7 @@ export default function Login({setToken}) {
 
     return(
         <div className='login-wrapper'>
-            <Header text='Login' />
+            <Header headerText='Login' />
             <div className='login-form-wrapper'>
                 <div className='card login-card mt-2 mb-2 pt-3 pb-3 pr-3 pl-3'>
                     <form onSubmit={handleSubmit}> 

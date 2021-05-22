@@ -9,14 +9,13 @@ class Course extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            average: this.props.average,
-            grades: []
+            average: this.props.average
         };
     }
 
     componentDidMount() {
-        let id = this.props.id;
-        axios.get(`http://localhost:5000/courses/${id}`)
+        let courseId = this.props.courseId;
+        axios.get(`http://localhost:5000/courses/${courseId}`)
             .then(res => {
                 let currGrades = this.state.grades;
                 for (let grade in res.data.grades) {

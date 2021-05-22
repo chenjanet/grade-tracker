@@ -3,9 +3,9 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const courseSchema = new Schema({
-    userid: { type: String, required: true },
-    groupid: { type: String, required: true },
-    coursename: { type: String, required: true },
+    userId: { type: String, required: true },
+    groupId: { type: String, required: true },
+    courseName: { type: String, required: true },
     grades: { type: Array, required: true },
     average: { type: Number },
     weight: { type: Number }

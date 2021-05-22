@@ -23,13 +23,13 @@ class Home extends React.Component {
         axios.get(`http://localhost:5000/groups`)
             .then(res => {
                 let groupData = res.data;
-                let userid = localStorage.getItem('user');
+                let userId = localStorage.getItem('user');
                 let courseGroups = {};
                 for (let i = 0; i < groupData.length; i++) {
-                    if (groupData[i].userid !== userid) {
+                    if (groupData[i].userId !== userId) {
                         continue;
                     }
-                    courseGroups[groupData[i].groupname] = {
+                    courseGroups[groupData[i].groupName] = {
                         'courses': groupData[i].courses,
                         'gid': groupData[i]._id
                     };
@@ -41,12 +41,12 @@ class Home extends React.Component {
             .catch(err => console.error('Error: ' + err));
     }
 
-    addNewGroup(groupname) {
+    addNewGroup(groupName) {
         let courseGroups = this.state.groups;
-        let userid = localStorage.getItem('user');
-        axios.post(`http://localhost:5000/groups/add`, { userid, groupname, courses: [] })
+        let userId = localStorage.getItem('user');
+        axios.post(`http://localhost:5000/groups/add`, { userId, groupName, courses: [] })
             .then(data => { 
-                courseGroups[groupname] = {
+                courseGroups[groupName] = {
                     'courses': [],
                     'gid': data.data
                 };

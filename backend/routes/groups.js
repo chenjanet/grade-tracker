@@ -8,13 +8,13 @@ router.route('/').get((req, res) => {
 });
 
 router.route('/add').post((req, res) => {
-    const userid = req.body.userid;
-    const groupname = req.body.groupname;
+    const userId = req.body.userId;
+    const groupName = req.body.groupName;
     const courses = req.body.courses;
 
     const newGroup = new Group({
-        userid,
-        groupname,
+        userId,
+        groupName,
         courses
     });
 
@@ -44,8 +44,8 @@ router.route('/:id').delete((req, res) => {
 router.route('/update/:id').post((req, res) => {
     Group.findById(req.params.id)
         .then((group) => {
-            group.userid = req.body.userid;
-            group.groupname = req.body.groupname;
+            group.userId = req.body.userId;
+            group.groupName = req.body.groupName;
             group.courses = req.body.courses;
 
             group.save()

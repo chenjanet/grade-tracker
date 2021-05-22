@@ -9,17 +9,17 @@ router.route('/').get((req, res) => {
 });
 
 router.route('/add').post((req, res) => {
-    const userid = req.body.userid;
-    const groupid = req.body.groupid;
-    const coursename = req.body.coursename;
+    const userId = req.body.userId;
+    const groupId = req.body.groupId;
+    const courseName = req.body.courseName;
     const grades = req.body.grades;
     const average = req.body.average || 0;
     const weight = req.body.weight || 1;
 
     const newCourse = new Course({
-        userid,
-        groupid,
-        coursename,
+        userId,
+        groupId,
+        courseName,
         grades,
         average,
         weight
@@ -27,9 +27,9 @@ router.route('/add').post((req, res) => {
 
     newCourse.save()
         .then((course) => {
-            Group.findById(req.body.groupid)
+            Group.findById(req.body.groupId)
                 .then((group) => {
-                    group.courses.push(req.body.coursename);
+                    group.courses.push(req.body.courseName);
                     group.save();
                 });
             res.json(course._id);
@@ -37,8 +37,8 @@ router.route('/add').post((req, res) => {
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.route('/:groupid').get((req, res) => {
-    Course.find({ "groupid": req.params.groupid })
+router.route('/:groupId').get((req, res) => {
+    Course.find({ "groupId": req.params.groupId })
         .then(courses => res.json(courses));
 });
 
@@ -53,8 +53,8 @@ router.route('/:id').delete((req, res) => {
         .then(() => res.json('Course deleted.'));
 });
 
-router.route('/deleteByGroup/:groupid').delete((req, res) => {
-    Course.find({ "groupid": req.params.groupid })
+router.route('/deleteByGroup/:groupId').delete((req, res) => {
+    Course.find({ "groupId": req.params.groupId })
         .then(async (courses) => {
             res.json(courses);
             for (let course in courses) {
@@ -67,9 +67,9 @@ router.route('/deleteByGroup/:groupid').delete((req, res) => {
 router.route('/update/:id').post((req, res) => {
     Course.findById(req.params.id)
         .then((course) => {
-            course.userid = req.body.userid;
-            course.groupid = req.body.groupid;
-            course.coursename = req.body.coursename;
+            course.userId = req.body.userId;
+            course.groupId = req.body.groupId;
+            course.courseName = req.body.courseName;
             course.grades = req.body.grades;
             course.average = req.body.avg || 0;
             course.weight = req.body.weight || 1;

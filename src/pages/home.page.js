@@ -85,8 +85,8 @@ class Home extends React.Component {
                 </Link> 
             );
             groups.push(
-                <Route exact path={`/${group}`} key={i}>
-                    <Group name={group} groupId={this.state.groups[group].gid} />
+                <Route path={`/${group}`} key={i}>
+                    <Group groupName={group} groupId={this.state.groups[group].gid} />
                 </Route>
             );
             i++;

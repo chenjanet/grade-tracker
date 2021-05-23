@@ -9,6 +9,7 @@ class Course extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            grades: [],
             average: this.props.average
         };
         this.addGrade = this.addGrade.bind(this);
@@ -18,6 +19,7 @@ class Course extends React.Component {
         let courseId = this.props.courseId;
         axios.get(`http://localhost:5000/courses/${courseId}`)
             .then(res => {
+                console.log(res.data);
                 let currGrades = this.state.grades;
                 for (let grade in res.data.grades) {
                     currGrades.push(res.data.grades[grade]);
@@ -25,6 +27,7 @@ class Course extends React.Component {
                 this.setState({
                     grades: currGrades
                 });
+                console.log(currGrades);
             })
             .catch(err => console.error('Error: ' + err));
     }
@@ -37,9 +40,9 @@ class Course extends React.Component {
         return (
             <div>
                 <LogoutButton />
-                <h1>{this.props.name}</h1>
+                <h1>{this.props.courseName}</h1>
                 <div>Course average:&nbsp;{this.state.average}</div>
-                <GradeTable grades={this.state.grades} addGrade={this.addGrade} />
+                {/*<GradeTable data={this.state.grades} addGrade={this.addGrade} />*/}
             </div>
         );
     }

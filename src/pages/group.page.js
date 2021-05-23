@@ -23,7 +23,7 @@ class Group extends React.Component {
     }
 
     componentDidMount() {
-        axios.get(`http://localhost:5000/courses/${this.props.groupId}`)
+        axios.get(`http://localhost:5000/courses/getByGroup/${this.props.groupId}`)
         .then(res => {
             let courseData = res.data;
             let userId = localStorage.getItem('user');
@@ -71,7 +71,7 @@ class Group extends React.Component {
         let groupCourses = this.state.courses;
         await axios.delete(`http://localhost:5000/courses/${courseId}`);
         let userId = localStorage.getItem('user');
-        let groupName = this.props.name;
+        let groupName = this.props.groupName;
         let newCourses = [];
         for (let course in groupCourses) {
             if (groupCourses[course].cid === courseId) {
@@ -91,13 +91,13 @@ class Group extends React.Component {
         for (let course in this.state.courses) {
             let courseBlockComponent = <CourseBlock name={this.state.courses[course].course} average={this.state.courses[course].average} courseId={this.state.courses[course].cid} deleteComponent={this.deleteCourse} />;
             courseBlocks.push(
-                <Link to={`/${this.state.courses[course].course}`} className='mt-3 pl-0 courseBlockLink' key={i}>
+                <Link to={`/${this.props.groupName}/${this.state.courses[course].course}`} className='mt-3 pl-0 courseBlockLink' key={i}>
                     {courseBlockComponent}
                 </Link>
             );
             courses.push(
-                <Route exact path={`/${this.state.courses[course].course}`} key={i}>
-                    <Course name={this.state.courses[course].course} average={this.state.courses[course].average} courseId={this.state.courses[course].cid} />
+                <Route exact path={`/${this.props.groupName}/${this.state.courses[course].course}`} key={i}>
+                    <Course courseName={this.state.courses[course].course} average={this.state.courses[course].average} courseId={this.state.courses[course].cid} />
                 </Route>
             );
             i++;
@@ -116,7 +116,7 @@ class Group extends React.Component {
                                 <BackButton />
                             </Link>
                             <LogoutButton />
-                            <h1>{this.props.name}</h1>
+                            <h1>{this.props.groupName}</h1>
                             <div>Overall average:&nbsp;{this.state.average}</div>
                             <div className='courses-wrapper'>{courseBlocks}</div>
                             <NewAdder adderType={"course"} adderInputLabel={"Course name"} handleAddNew={this.addNewCourse}/>

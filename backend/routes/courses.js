@@ -37,7 +37,7 @@ router.route('/add').post((req, res) => {
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.route('/:groupId').get((req, res) => {
+router.route('/getByGroup/:groupId').get((req, res) => {
     Course.find({ "groupId": req.params.groupId })
         .then(courses => res.json(courses));
 });
@@ -71,7 +71,7 @@ router.route('/update/:id').post((req, res) => {
             course.groupId = req.body.groupId;
             course.courseName = req.body.courseName;
             course.grades = req.body.grades;
-            course.average = req.body.avg || 0;
+            course.average = req.body.average || 0;
             course.weight = req.body.weight || 1;
 
             course.save()
@@ -80,5 +80,17 @@ router.route('/update/:id').post((req, res) => {
         })
         .catch(err => res.status(400).json('Error: ' + err));
 });
+
+router.route('/addGrade/:id').post((req, res) => {
+    Course.findById(req.params.id)
+        .then((course) => {
+            course.average += req.body.grade.weightedGrade;
+            course.grades.push(req.body.grade);
+            course.save()
+                .then(() => res.json('Grade added.'))
+                .catch(err => res.status(400).json('Error: ' + err));
+        })
+        .catch(err => res.status(400).json('Error: ' + err));
+})
 
 module.exports = router;

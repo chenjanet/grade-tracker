@@ -3,7 +3,7 @@ import { useTable } from 'react-table';
 
 import './components.css';
 
-export default function GradeTable({ data, addGrade }) {
+export default function GradeTable({ data, dataUpdated }) {
     const columns = useMemo(
         () => [
             {
@@ -27,8 +27,8 @@ export default function GradeTable({ data, addGrade }) {
         getTableBodyProps,
         headers,
         rows, 
-        prepareRow, 
-    } = useTable({ columns, data });
+        prepareRow
+    } = useTable({ columns, data, dataUpdated });
 
     return(
         <table {...getTableProps()}>

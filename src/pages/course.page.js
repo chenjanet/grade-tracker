@@ -7,14 +7,32 @@ import NewGradeAdder from '../components/newGradeAdder.component';
 
 import './pages.css';
 
+function SaveButton({ showButton, onClick }) {
+    if (showButton) {
+        return (
+            <button className='saveButton' style={{marginTop: 7.5}} onClick={onClick}>
+                Save changes
+            </button>
+        );
+    } else {
+        return(
+            <>
+            </>
+        );
+    }
+}
+
 class Course extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             grades: [],
-            average: 0
+            average: 0,
+            dirtyFlag: 0
         };
         this.addGrade = this.addGrade.bind(this);
+        this.dataUpdated = this.dataUpdated.bind(this);
+        this.saveGrades = this.saveGrades.bind(this);
     }
 
     componentDidMount() {
@@ -36,7 +54,26 @@ class Course extends React.Component {
     }
 
     addGrade() {
-        
+        let currGrades = [...this.state.grades];
+        currGrades.push({
+            'grade': 0,
+            'weight': 0,
+            'weightedGrade': 0
+        });
+        this.setState({
+            grades: currGrades,
+            dirtyFlag: 1
+        });
+    }
+
+    dataUpdated() {
+        this.setState({
+            dirtyFlag: 1
+        });
+    }
+
+    saveGrades() {
+
     }
 
     render() {
@@ -46,8 +83,9 @@ class Course extends React.Component {
                 <LogoutButton />
                 <h1>{this.props.courseName}</h1>
                 <div>Course average:&nbsp;{this.state.average}</div>
-                <GradeTable data={this.state.grades} />
+                <GradeTable data={this.state.grades} dataUpdated={this.dataUpdated} />
                 <NewGradeAdder addGradeFunction={this.addGrade} />
+                <SaveButton showButton={this.state.dirtyFlag} onClick={this.saveGrades}/>
             </div>
         );
     }

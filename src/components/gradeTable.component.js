@@ -1,29 +1,26 @@
-import { faThList } from '@fortawesome/free-solid-svg-icons';
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useTable } from 'react-table';
 
 import './components.css';
 
 const EditableCell = ({
     value: initialValue,
-    row: { index },
-    column: { id },
     dataUpdated
 }) => {
-    const [value, setValue] = React.useState(initialValue);
+    const [value, setValue] = useState(initialValue);
     
     const onChange = e => {
         setValue(e.target.value)
     };
 
     const onBlur = () => {
-        if (value != initialValue) {
+        if (value !== initialValue) {
             initialValue = value;
             dataUpdated();
         }
     };
 
-    React.useEffect(() => {
+    useEffect(() => {
         setValue(initialValue)
     }, [initialValue]);
 

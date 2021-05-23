@@ -1,7 +1,38 @@
+import { faThList } from '@fortawesome/free-solid-svg-icons';
 import React, { useMemo, useState } from 'react';
 import { useTable } from 'react-table';
 
 import './components.css';
+
+const EditableCell = ({
+    value: initialValue,
+    row: { index },
+    column: { id },
+    dataUpdated
+}) => {
+    const [value, setValue] = React.useState(initialValue);
+    
+    const onChange = e => {
+        setValue(e.target.value)
+    };
+
+    const onBlur = () => {
+        if (value != initialValue) {
+            initialValue = value;
+            dataUpdated();
+        }
+    };
+
+    React.useEffect(() => {
+        setValue(initialValue)
+    }, [initialValue]);
+
+    return <input value={value} onChange={onChange} onBlur={onBlur} />
+}
+
+const defaultColumn = {
+    Cell: EditableCell,
+};
 
 export default function GradeTable({ data, dataUpdated }) {
     const columns = useMemo(
@@ -28,7 +59,7 @@ export default function GradeTable({ data, dataUpdated }) {
         headers,
         rows, 
         prepareRow
-    } = useTable({ columns, data, dataUpdated });
+    } = useTable({ columns, data, defaultColumn, dataUpdated });
 
     return(
         <table {...getTableProps()}>

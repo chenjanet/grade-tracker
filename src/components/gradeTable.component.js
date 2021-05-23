@@ -4,14 +4,14 @@ import { useTable } from 'react-table';
 import './components.css';
 
 export default function GradeTable({ data, addGrade }) {
-    const columns = React.useMemo(
+    const columns = useMemo(
         () => [
             {
                 Header: "Grade",
                 accessor: "grade"
             },
             {
-                Header: "Weight",
+                Header: "Weight (out of 100%)",
                 accessor: "weight"
             },
             {
@@ -33,13 +33,15 @@ export default function GradeTable({ data, addGrade }) {
     return(
         <table {...getTableProps()}>
             <thead>
-                {
-                    headers.map(column => (
-                        <th {...column.getHeaderProps()}>
-                            { column.render('Header') }
-                        </th>
-                    ))
-                }
+                <tr>
+                    {
+                        headers.map(column => (
+                            <th {...column.getHeaderProps()}>
+                                { column.render('Header') }
+                            </th>
+                        ))
+                    }
+                </tr>
             </thead>
             <tbody {...getTableBodyProps()}>
                 {

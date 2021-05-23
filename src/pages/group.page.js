@@ -89,7 +89,7 @@ class Group extends React.Component {
     render() {
         let courseBlocks = [], courses = [], i = 0;
         for (let course in this.state.courses) {
-            let courseBlockComponent = <CourseBlock name={this.state.courses[course].course} courseId={this.state.courses[course].cid} deleteComponent={this.deleteCourse} />;
+            let courseBlockComponent = <CourseBlock name={this.state.courses[course].course} average={this.state.courses[course].average} courseId={this.state.courses[course].cid} deleteComponent={this.deleteCourse} />;
             courseBlocks.push(
                 <Link to={`/${this.props.groupName}/${this.state.courses[course].course}`} className='mt-3 pl-0 courseBlockLink' key={i}>
                     {courseBlockComponent}
@@ -97,7 +97,7 @@ class Group extends React.Component {
             );
             courses.push(
                 <Route exact path={`/${this.props.groupName}/${this.state.courses[course].course}`} key={i}>
-                    <Course courseName={this.state.courses[course].course} average={this.state.courses[course].average} courseId={this.state.courses[course].cid} />
+                    <Course courseName={this.state.courses[course].course} courseId={this.state.courses[course].cid} />
                 </Route>
             );
             i++;

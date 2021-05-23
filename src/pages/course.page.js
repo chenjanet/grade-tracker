@@ -3,6 +3,7 @@ import React from 'react';
 import LogoutButton from '../components/logoutButton.component';
 import BackButton from '../components/backButton.component';
 import GradeTable from '../components/gradeTable.component';
+import NewGradeAdder from '../components/newGradeAdder.component';
 
 import './pages.css';
 
@@ -34,19 +35,19 @@ class Course extends React.Component {
             .catch(err => console.error('Error: ' + err));
     }
 
-    addGrade(grade, weight) {
-
+    addGrade() {
+        
     }
 
     render() {
-        console.log(this.state.grades);
         return (
             <div>
                 <BackButton />
                 <LogoutButton />
                 <h1>{this.props.courseName}</h1>
                 <div>Course average:&nbsp;{this.state.average}</div>
-                <GradeTable data={this.state.grades} addGrade={this.addGrade} />
+                <GradeTable data={this.state.grades} />
+                <NewGradeAdder addGradeFunction={this.addGrade} />
             </div>
         );
     }

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React from 'react';
 import LogoutButton from '../components/logoutButton.component';
+import BackButton from '../components/backButton.component';
 import GradeTable from '../components/gradeTable.component';
 
 import './pages.css';
@@ -41,6 +42,7 @@ class Course extends React.Component {
         console.log(this.state.grades);
         return (
             <div>
+                <BackButton />
                 <LogoutButton />
                 <h1>{this.props.courseName}</h1>
                 <div>Course average:&nbsp;{this.state.average}</div>

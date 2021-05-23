@@ -112,9 +112,7 @@ class Group extends React.Component {
                             <Home />
                         </Route>
                         <Route path='/'>
-                            <Link to='../'>
-                                <BackButton />
-                            </Link>
+                            <BackButton />
                             <LogoutButton />
                             <h1>{this.props.groupName}</h1>
                             <div>Overall average:&nbsp;{this.state.average}</div>

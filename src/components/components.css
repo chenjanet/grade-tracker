@@ -90,12 +90,12 @@ table {
     width: 100%;
 }
 
-tr:last-child td {
-    /*border-bottom: 0;*/
-}
-
 td:last-child {
     width: 33%;
+}
+
+tfoot {
+    background-color: #949da6;
 }
 
 th, td {

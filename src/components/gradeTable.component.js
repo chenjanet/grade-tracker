@@ -1,3 +1,4 @@
+import { data } from 'jquery';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTable } from 'react-table';
 
@@ -34,8 +35,9 @@ const defaultColumn = {
 };
 
 function weightedGradeAccessor(row) {
-    console.log(row);
-    return Number(row.grade / 100 * row.weight);
+    let weightedGrade = row.grade / 100 * row.weight;
+    weightedGrade = +weightedGrade.toFixed(2);
+    return Number(weightedGrade);
 }
 
 export default function GradeTable({ data, dataUpdated }) {
@@ -46,12 +48,33 @@ export default function GradeTable({ data, dataUpdated }) {
                 accessor: "grade"
             },
             {
-                Header: "Weight (out of 100%)",
-                accessor: "weight"
+                Header: "Weight (out of 100)",
+                accessor: "weight",
+                Footer: info => {
+                    // Only calculate total visits if rows change
+                    const total = React.useMemo(
+                        () =>
+                        info.rows.reduce((sum, row) => row.values.weight + sum, 0),
+                        [info.rows]
+                    )
+        
+                    return <>Total weight: {total}</>
+                },
             },
             {
                 Header: "Weighted grade",
-                accessor: weightedGradeAccessor
+                accessor: weightedGradeAccessor,
+                Cell: ({ value }) => String(value),
+                Footer: info => {
+                    // Only calculate total visits if rows change
+                    const total = React.useMemo(
+                        () =>
+                        info.rows.reduce((sum, row) => row.values.grade / 100 * row.values.weight + sum, 0),
+                        [info.rows]
+                    )
+        
+                    return <>Average: {total}</>
+                },
             }
         ],
         []
@@ -98,6 +121,13 @@ export default function GradeTable({ data, dataUpdated }) {
                     })
                 }
             </tbody>
+            <tfoot>
+                {
+                    headers.map(column => (
+                        <td {...column.getFooterProps()}>{column.render('Footer')}</td>
+                    ))
+                }
+            </tfoot>
         </table>
     );
 }

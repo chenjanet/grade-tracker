@@ -67,16 +67,17 @@ class Course extends React.Component {
 
     dataUpdated(index, id, val) {
         let currGrades = [...this.state.grades];
-        currGrades[index][id] = val;
+        currGrades[index][id] = Number(val);
         this.setState({
             dirtyFlag: 1,
             grades: currGrades
         });
-
     }
 
     saveGrades() {
-
+        this.setState({
+            dirtyFlag: 0
+        });
     }
 
     render() {
@@ -85,7 +86,6 @@ class Course extends React.Component {
                 <BackButton />
                 <LogoutButton />
                 <h1>{this.props.courseName}</h1>
-                <div>Course average:&nbsp;{this.state.average}</div>
                 <GradeTable data={this.state.grades} dataUpdated={this.dataUpdated} />
                 <NewGradeAdder addGradeFunction={this.addGrade} />
                 <SaveButton showButton={this.state.dirtyFlag} onClick={this.saveGrades}/>

@@ -43,7 +43,7 @@ class Course extends React.Component {
                 let courseAverage = 0;
                 for (let grade in res.data.grades) {
                     currGrades.push(res.data.grades[grade]);
-                    courseAverage += res.data.grades[grade].weightedGrade;
+                    courseAverage += res.data.grades[grade].grade / 100 * res.data.grades[grade].weight;
                 }
                 this.setState({
                     grades: currGrades,
@@ -57,8 +57,7 @@ class Course extends React.Component {
         let currGrades = [...this.state.grades];
         currGrades.push({
             'grade': 0,
-            'weight': 0,
-            'weightedGrade': 0
+            'weight': 0
         });
         this.setState({
             grades: currGrades,
@@ -66,10 +65,14 @@ class Course extends React.Component {
         });
     }
 
-    dataUpdated() {
+    dataUpdated(index, id, val) {
+        let currGrades = [...this.state.grades];
+        currGrades[index][id] = val;
         this.setState({
-            dirtyFlag: 1
+            dirtyFlag: 1,
+            grades: currGrades
         });
+
     }
 
     saveGrades() {

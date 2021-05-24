@@ -4,6 +4,8 @@ import { useTable } from 'react-table';
 import './components.css';
 
 const EditableCell = ({
+    column: { id },
+    row: { index },
     value: initialValue,
     dataUpdated
 }) => {
@@ -16,7 +18,7 @@ const EditableCell = ({
     const onBlur = () => {
         if (value !== initialValue) {
             initialValue = value;
-            dataUpdated();
+            dataUpdated(index, id, value);
         }
     };
 
@@ -31,6 +33,11 @@ const defaultColumn = {
     Cell: EditableCell,
 };
 
+function weightedGradeAccessor(row) {
+    console.log(row);
+    return Number(row.grade / 100 * row.weight);
+}
+
 export default function GradeTable({ data, dataUpdated }) {
     const columns = useMemo(
         () => [
@@ -44,7 +51,7 @@ export default function GradeTable({ data, dataUpdated }) {
             },
             {
                 Header: "Weighted grade",
-                accessor: "weightedGrade"
+                accessor: weightedGradeAccessor
             }
         ],
         []

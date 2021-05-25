@@ -1,4 +1,3 @@
-import { data } from 'jquery';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTable } from 'react-table';
 

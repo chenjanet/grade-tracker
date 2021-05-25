@@ -94,8 +94,8 @@ td:last-child {
     width: 33%;
 }
 
-tfoot {
-    background-color: #949da6;
+tfoot td, thead th {
+    font-weight: bold!important;
 }
 
 th, td {

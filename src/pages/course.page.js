@@ -28,7 +28,8 @@ class Course extends React.Component {
         this.state = {
             grades: [],
             average: 0,
-            dirtyFlag: 0
+            dirtyFlag: 0,
+            weight: 0
         };
         this.addGrade = this.addGrade.bind(this);
         this.dataUpdated = this.dataUpdated.bind(this);
@@ -39,6 +40,7 @@ class Course extends React.Component {
         let courseId = this.props.courseId;
         axios.get(`http://localhost:5000/courses/${courseId}`)
             .then(res => {
+                let courseWeight = res.data.weight;
                 let currGrades = [...this.state.grades];
                 let courseAverage = 0;
                 for (let grade in res.data.grades) {
@@ -47,7 +49,8 @@ class Course extends React.Component {
                 }
                 this.setState({
                     grades: currGrades,
-                    average: courseAverage
+                    average: courseAverage,
+                    weight: courseWeight
                 });
             })
             .catch(err => console.error('Error: ' + err));
@@ -75,9 +78,34 @@ class Course extends React.Component {
     }
 
     saveGrades() {
-        this.setState({
-            dirtyFlag: 0
-        });
+        let userId = localStorage.getItem('user');
+        let groupId = this.props.groupId;
+        let courseName = this.props.courseName;
+        let grades = [];
+        let average = 0;
+        for (let i = 0; i < this.state.grades.length; i++) {
+            if (this.state.grades[i].grade === 0 && this.state.grades[i].weight === 0) {
+                continue;
+            }
+            grades.push(this.state.grades[i]);
+            average += this.state.grades[i].grade / 100 * this.state.grades[i].weight;
+        }
+        let weight = this.state.weight;
+        let postData = {
+            userId,
+            groupId,
+            courseName,
+            grades,
+            average,
+            weight
+        }
+        axios.post(`http://localhost:5000/courses/update/${this.props.courseId}`, postData)
+            .then(() => {
+                this.setState({
+                    dirtyFlag: 0
+                });
+            })
+            .catch(err => console.error('Error: ' + err));
     }
 
     render() {

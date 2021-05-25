@@ -97,7 +97,7 @@ class Group extends React.Component {
             );
             courses.push(
                 <Route exact path={`/${this.props.groupName}/${this.state.courses[course].course}`} key={i}>
-                    <Course courseName={this.state.courses[course].course} courseId={this.state.courses[course].cid} />
+                    <Course courseName={this.state.courses[course].course} groupId={this.props.groupId} courseId={this.state.courses[course].cid} />
                 </Route>
             );
             i++;

@@ -81,7 +81,7 @@
     margin-top: 0.5rem;
     display: inline-block;
     width: 100%;
-    padding: 0.5rem 5rem 0.5rem 0.5rem;
+    padding: 0.5rem;
     border: 2px solid #000;
     border-radius: 0;
     box-shadow: 2.5px 2.5px #000;
@@ -104,7 +104,7 @@ tfoot td, thead th {
 
 th, td {
     margin: 0;
-    padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+    padding: 0.5rem;
     border-bottom: 2px solid black;
     border-right: 2px solid black;
 }

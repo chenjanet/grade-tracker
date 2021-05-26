@@ -23,14 +23,18 @@
     float: right;
 }
 
-.deleteButton {
+.deleteButton, .deleteGrade {
     float: right;
     border: 2px solid #FFF!important;
     box-shadow: none!important;
     padding: 0 7.5px!important;
 }
 
-.deleteButton:hover {
+.deleteGrade {
+    float: left;
+}
+
+.deleteButton:hover, .deleteGrade:hover {
     border: 2px solid #000 !important;
     transform: none!important;
     background-color: #F25341;
@@ -90,8 +94,8 @@ table {
     width: 100%;
 }
 
-td:last-child {
-    width: 33%;
+td:last-child, td:nth-child(3n+3) {
+    width: 25%;
 }
 
 tfoot td, thead th {

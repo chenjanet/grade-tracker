@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTable } from 'react-table';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import './components.css';
 
@@ -26,12 +27,23 @@ const EditableCell = ({
         setValue(initialValue)
     }, [initialValue]);
 
-    return <input value={value} onChange={onChange} onBlur={onBlur} />
+    return <input value={value} onChange={onChange} onBlur={onBlur}></input>
 }
 
 const defaultColumn = {
     Cell: EditableCell,
 };
+
+const DeleteCell = ({
+    row: { index },
+    deleteData
+}) => {
+    const onClick = () => {
+        deleteData(index);
+    }
+
+    return <button className="deleteGrade" onClick={onClick}><FontAwesomeIcon icon="times" /></button>
+}
 
 function weightedGradeAccessor(row) {
     let weightedGrade = row.grade / 100 * row.weight;
@@ -39,7 +51,7 @@ function weightedGradeAccessor(row) {
     return Number(weightedGrade);
 }
 
-export default function GradeTable({ data, dataUpdated }) {
+export default function GradeTable({ data, dataUpdated, deleteData }) {
     const columns = useMemo(
         () => [
             {
@@ -74,6 +86,11 @@ export default function GradeTable({ data, dataUpdated }) {
         
                     return <>Average: {total}</>
                 },
+            },
+            {
+                Header: "Remove grade",
+                accessor: null,
+                Cell: DeleteCell
             }
         ],
         []
@@ -85,7 +102,7 @@ export default function GradeTable({ data, dataUpdated }) {
         headers,
         rows, 
         prepareRow
-    } = useTable({ columns, data, defaultColumn, dataUpdated });
+    } = useTable({ columns, data, defaultColumn, dataUpdated, deleteData });
 
     return(
         <table {...getTableProps()}>

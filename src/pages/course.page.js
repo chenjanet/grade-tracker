@@ -33,6 +33,7 @@ class Course extends React.Component {
         };
         this.addGrade = this.addGrade.bind(this);
         this.dataUpdated = this.dataUpdated.bind(this);
+        this.deleteData = this.deleteData.bind(this);
         this.saveGrades = this.saveGrades.bind(this);
     }
 
@@ -77,6 +78,15 @@ class Course extends React.Component {
         });
     }
 
+    deleteData(index) {
+        let currGrades = [...this.state.grades];
+        currGrades.splice(index, 1);
+        this.setState({
+            dirtyFlag: 1,
+            grades: currGrades
+        });
+    }
+
     saveGrades() {
         let userId = localStorage.getItem('user');
         let groupId = this.props.groupId;
@@ -114,7 +124,7 @@ class Course extends React.Component {
                 <BackButton />
                 <LogoutButton />
                 <h1>{this.props.courseName}</h1>
-                <GradeTable data={this.state.grades} dataUpdated={this.dataUpdated} />
+                <GradeTable data={this.state.grades} dataUpdated={this.dataUpdated} deleteData={this.deleteData} />
                 <NewGradeAdder addGradeFunction={this.addGrade} />
                 <SaveButton showButton={this.state.dirtyFlag} onClick={this.saveGrades}/>
             </div>

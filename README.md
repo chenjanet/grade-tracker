@@ -2,7 +2,6 @@
 <p align="center">a minimalist grade tracker</p>
 <div align="center">
   <img src="https://img.shields.io/tokei/lines/github/j985chen/grade-tracker" />
-  <img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/m/j985chen/grade-tracker">
   <a href="https://www.codefactor.io/repository/github/j985chen/grade-tracker">
     <img src="https://img.shields.io/codefactor/grade/github/j985chen/grade-tracker" />
   </a>

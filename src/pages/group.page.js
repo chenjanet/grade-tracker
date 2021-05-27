@@ -46,12 +46,14 @@ class Group extends React.Component {
         });  
     }
 
-    addNewCourse(courseName) {
+    addNewCourse() {
+        let courseName = document.getElementById('courseName').value;
+        let weight = document.getElementById('courseWeight').value
         let userId = localStorage.getItem('user');
         let groupId = this.props.groupId;
         let groupCourses = this.state.courses;
         let groupAverage = this.state.groupAverage * groupCourses.length;
-        axios.post(`http://localhost:5000/courses/add`, { userId, groupId, courseName, grades: [], average: 0, weight: 1 })
+        axios.post(`http://localhost:5000/courses/add`, { userId, groupId, courseName, grades: [], average: 0, weight })
             .then((res) => { 
                 groupCourses.push(
                     { course: courseName, cid: res.data, average: 0 }
@@ -103,6 +105,20 @@ class Group extends React.Component {
             i++;
         }
 
+        const adderModalBody = (
+            <>
+                <label htmlFor='courseName'>Course name</label>
+                <input type='text' className='form-control' id='courseName' />
+                <label htmlFor='courseWeight'>Course credits</label>
+                <select className='form-control' id='courseWeight'>
+                    <option value='0.25'>0.25</option>
+                    <option value='0.33'>0.33</option>
+                    <option value='0.5' selected>0.5</option>
+                    <option value='1'>1</option>
+                </select>
+            </>
+        )
+
         return (
             <div>
                 <BrowserRouter>
@@ -117,7 +133,11 @@ class Group extends React.Component {
                             <h1>{this.props.groupName}</h1>
                             <div>Overall average:&nbsp;{this.state.average}</div>
                             <div className='courses-wrapper'>{courseBlocks}</div>
-                            <NewAdder adderType={"course"} adderInputLabel={"Course name"} handleAddNew={this.addNewCourse}/>
+                            <NewAdder 
+                                adderType={"course"} 
+                                adderModalBody={adderModalBody} 
+                                handleAddNew={this.addNewCourse}
+                            />
                         </Route>
                     </Switch>
                 </BrowserRouter>

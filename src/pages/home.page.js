@@ -41,7 +41,8 @@ class Home extends React.Component {
             .catch(err => console.error('Error: ' + err));
     }
 
-    addNewGroup(groupName) {
+    addNewGroup() {
+        let groupName = document.getElementById('groupName').value;
         let courseGroups = this.state.groups;
         let userId = localStorage.getItem('user');
         axios.post(`http://localhost:5000/groups/add`, { userId, groupName, courses: [] })
@@ -92,6 +93,13 @@ class Home extends React.Component {
             i++;
         }
 
+        const adderModalBody = (
+            <>
+                <label htmlFor='groupName'>Term name</label>
+                <input type='text' className='form-control' id='groupName' />
+            </>
+        );
+
         return (
             <div>
                 <BrowserRouter>
@@ -102,7 +110,11 @@ class Home extends React.Component {
                             <h1>Terms</h1>
                             <div className="groups-wrapper">
                                 {groupBlocks}
-                                <NewAdder adderType={"term"} adderInputLabel={"Term name"} handleAddNew={this.addNewGroup}/>
+                                <NewAdder 
+                                    adderType={"term"} 
+                                    adderModalBody={adderModalBody}
+                                    handleAddNew={this.addNewGroup}
+                                />
                             </div>
                         </Route>
                     </Switch>

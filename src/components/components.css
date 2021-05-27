@@ -52,6 +52,7 @@
     min-width: 15%;
     width: 100%;
     margin-top: 1rem;
+    cursor: pointer;
 }
 
 .groupBlockLink, .courseBlockLink {

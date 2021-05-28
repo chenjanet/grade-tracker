@@ -5,7 +5,7 @@
     box-shadow: 5px 5px #000;
 }
 
-.fa-plus, .fa-times {
+.fa-plus, .fa-times, .fa-cog {
     transform: scale(0.5);
 }
 
@@ -23,21 +23,25 @@
     float: right;
 }
 
-.deleteButton, .deleteGrade {
+.settingsButton, .deleteGrade {
     float: right;
-    border: 2px solid #FFF!important;
+    border: 2px solid #000!important;
     box-shadow: none!important;
-    padding: 0 7.5px!important;
+    transform: none!important;
+    padding: 0 7px!important;
 }
 
 .deleteGrade {
     float: left;
+    background-color: #F25341!important;
 }
 
-.deleteButton:hover, .deleteGrade:hover {
-    border: 2px solid #000 !important;
-    transform: none!important;
-    background-color: #F25341;
+.settingsButton {
+    background-color: #4094ed!important;
+}
+
+.deleteGrade:hover, .settingsButton:hover {
+    box-shadow: none!important;
 }
 
 .cancelButton:hover, .backButton:hover, .logoutButton:hover {
@@ -86,6 +90,37 @@
     border: 2px solid #000;
     border-radius: 0;
     box-shadow: 2.5px 2.5px #000;
+}
+
+.settingsOptions:not(.visible) {
+    display: none;
+}
+
+.settingsOptions.visible {
+    position: fixed;
+    width: 50%;
+    display: block;
+    border: 2px solid #000;
+    background: #FFF;
+    transform: translate(70%, 0);
+    z-index: 2;
+}
+
+.settingsOption {
+    z-index: 1;
+    width: 100%;
+    font-size: 1rem;
+    padding: 0.5em 0.25em;
+    color: #000;
+}
+
+.settingsOption.deleteOption:hover {
+    background-color: #F25341;
+}
+
+.settingsOption:hover {
+    background-color: #ACDFF8;
+    color: #000!important;
 }
 
 table {

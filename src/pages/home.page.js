@@ -13,10 +13,11 @@ class Home extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            groups: []
+            groups: {}
         };
         this.addNewGroup = this.addNewGroup.bind(this);
         this.deleteGroup = this.deleteGroup.bind(this);
+        this.renameGroup = this.renameGroup.bind(this);
     }
 
     componentDidMount() {
@@ -74,10 +75,28 @@ class Home extends React.Component {
         });
     }
 
+    async renameGroup(groupId, newName) {
+        let groupInfo = await axios.get(`http://localhost:5000/groups/${groupId}`);
+        let courseGroups = this.state.groups;
+        let newGroups = {};
+        for (let course in courseGroups) {
+            if (course === groupInfo.data.groupName) {
+                newGroups[newName] = courseGroups[course];
+            } else {
+                newGroups[course] = courseGroups[course];
+            }
+        }
+        groupInfo.data.groupName = newName;
+        await axios.post(`http://localhost:5000/groups/update/${groupId}`, groupInfo.data);
+        this.setState({
+            groups: newGroups
+        });
+    }
+
     render() {
         let groupBlocks = [], groups = [], i = 0;
         for (let group in this.state.groups) {
-            let groupBlockComponent = <GroupBlock name={group} groupId={this.state.groups[group].gid} deleteComponent={this.deleteGroup} courses={JSON.stringify(this.state.groups[group].courses)} />;
+            let groupBlockComponent = <GroupBlock groupName={group} groupId={this.state.groups[group].gid} deleteComponent={this.deleteGroup} renameComponent={this.renameGroup} courses={JSON.stringify(this.state.groups[group].courses)} />;
             groupBlocks.push(
                 <Link to={`/${group}`} className='groupBlockLink mt-3 pl-0' key={i}>
                     {groupBlockComponent}

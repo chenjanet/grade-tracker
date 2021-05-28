@@ -20,6 +20,7 @@ class Group extends React.Component {
         };
         this.addNewCourse = this.addNewCourse.bind(this);
         this.deleteCourse = this.deleteCourse.bind(this);
+        this.renameCourse = this.renameCourse.bind(this);
     }
 
     componentDidMount() {
@@ -74,9 +75,7 @@ class Group extends React.Component {
         let groupName = this.props.groupName;
         let newCourses = [];
         for (let course in groupCourses) {
-            if (groupCourses[course].cid === courseId) {
-                delete groupCourses[course];
-            } else {
+            if (groupCourses[course].cid !== courseId) {
                 newCourses.push(groupCourses[course].course);
             }
         }
@@ -86,10 +85,32 @@ class Group extends React.Component {
         });
     }
 
+    async renameCourse(courseId, newName) {
+        let courseInfo = await axios.get(`http://localhost:5000/courses/${courseId}`);
+        let groupInfo = await axios.get(`http://localhost:5000/groups/${this.props.groupId}`);
+        let currentCourses = this.state.courses;
+        let groupCourses = [];
+        for (let course in currentCourses) {
+            if (currentCourses[course].course === courseInfo.data.courseName) {
+                currentCourses[course].course = newName;
+                groupCourses.push(newName);
+            } else {
+                groupCourses.push(currentCourses[course].course);
+            }
+        }
+        courseInfo.data.courseName = newName;
+        groupInfo.data.courses = groupCourses;
+        await axios.post(`http://localhost:5000/courses/update/${courseId}`, courseInfo.data);
+        await axios.post(`http://localhost:5000/groups/update/${this.props.groupId}`, groupInfo.data);
+        this.setState({
+            courses: currentCourses
+        });
+    }
+
     render() {
         let courseBlocks = [], courses = [], i = 0;
         for (let course in this.state.courses) {
-            let courseBlockComponent = <CourseBlock name={this.state.courses[course].course} average={this.state.courses[course].average} courseId={this.state.courses[course].cid} deleteComponent={this.deleteCourse} />;
+            let courseBlockComponent = <CourseBlock courseName={this.state.courses[course].course} courseId={this.state.courses[course].cid} average={this.state.courses[course].average} deleteComponent={this.deleteCourse} renameComponent={this.renameCourse} />;
             courseBlocks.push(
                 <Link to={`/${this.props.groupName}/${this.state.courses[course].course}`} className='mt-3 pl-0 courseBlockLink' key={i}>
                     {courseBlockComponent}

@@ -8,7 +8,7 @@ export default function Dialog({ initialModalShow, modalTitle, modalBody, modalC
     }, [initialModalShow]);
     
     return (
-        <Modal show={modalShow} onHide={() => setModalShow(false)}>
+        <Modal show={modalShow} onHide={() => setModalShow(false)} onClick={(e) => e.preventDefault()}>
             <Modal.Header closeButton>
                 <Modal.Title>{modalTitle}</Modal.Title>
             </Modal.Header>

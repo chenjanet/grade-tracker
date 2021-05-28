@@ -1,8 +1,8 @@
 import React from 'react';
-import Deleter from './deleter.component';
+import SettingsButton from '../components/settingsButton.component';
 import './components.css';
 
-export default function groupBlock({ name, groupId, courses, deleteComponent }) {
+export default function groupBlock({ groupName, groupId, courses, renameComponent, deleteComponent }) {
     let courseNames = [];
     let courseList = JSON.parse(courses), i = 0;
     for (let course in courseList) {
@@ -11,7 +11,7 @@ export default function groupBlock({ name, groupId, courses, deleteComponent }) 
     }
     return (
         <div className='card groupBlock pb-3 pt-2 pl-2 pr-2'>
-            <h2><Deleter deleteComponent={deleteComponent} deleteId={groupId}/> {name}</h2>
+            <h2><SettingsButton componentName={groupName} componentId={groupId} deleteComponent={deleteComponent} renameComponent={renameComponent}/> {groupName}</h2>
             {courseNames}
         </div>
     );

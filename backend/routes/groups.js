@@ -21,7 +21,6 @@ router.route('/add').post((req, res) => {
     newGroup.save()
         .then(group => {
             res.json(group._id);
-            console.log(res.json);
         })
         .catch(err => res.status(400).json('Error: ' + err));
 });
@@ -35,7 +34,6 @@ router.route('/:id').get((req, res) => {
 router.route('/:id').delete((req, res) => {
     Group.findByIdAndDelete(req.params.id)
         .then(() => {
-            
             res.json('Group deleted.')
         })
         .catch(err => res.status(400).json('Error: ' + err));

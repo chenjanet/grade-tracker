@@ -16,13 +16,13 @@ export default function Dialog({ initialModalShow, modalTitle, modalBody, modalC
                 {modalBody}
             </Modal.Body>
             <Modal.Footer>
-                <button className='cancelButton' onClick={() => {
-                    onClose();
+                <button className='cancelButton' onClick={(e) => {
+                    onClose(e);
                     setModalShow(false);
                 }}>Cancel</button>
-                <button className='saveButton' onClick={() => {
+                <button className='saveButton' onClick={(e) => {
                     modalConfirm();
-                    onClose();
+                    onClose(e);
                     setModalShow(false);
                 }}>Save</button>
             </Modal.Footer>

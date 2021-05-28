@@ -59,10 +59,8 @@ class Home extends React.Component {
             .catch(err => console.error('Error: ' + err));
     }
 
-    async deleteGroup(e, groupId) {
+    async deleteGroup(groupId) {
         let courseGroups = this.state.groups;
-        e.preventDefault();
-        e.stopPropagation();
         await axios.delete(`http://localhost:5000/groups/${groupId}`);
         await axios.delete(`http://localhost:5000/courses/deleteByGroup/${groupId}`);
         for (let group in courseGroups) {

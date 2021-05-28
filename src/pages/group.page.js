@@ -67,9 +67,7 @@ class Group extends React.Component {
             .catch(err => console.error('Error: ' + err));
     }
 
-    async deleteCourse(e, courseId) {
-        e.preventDefault();
-        e.stopPropagation();
+    async deleteCourse(courseId) {
         let groupCourses = this.state.courses;
         await axios.delete(`http://localhost:5000/courses/${courseId}`);
         let userId = localStorage.getItem('user');

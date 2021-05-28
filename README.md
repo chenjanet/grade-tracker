@@ -20,11 +20,11 @@
 ### Features
 - Adding/removing grades of different weights from multiple courses
 - Organizing courses by term
+- Adding, removing, and renaming courses and terms
 - Calculating overall term averages
 - User authentication (ish)
 
 #### Coming soon
-- Term/course renaming
 - Move backend + frontend ports to a .env file
 - Conversion to 4-point GPA scale
 - Dark mode 😎

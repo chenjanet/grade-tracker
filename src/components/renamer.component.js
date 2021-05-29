@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Dialog from './dialog.component';
 
-export default function Renamer({ initialName, renameId, renameComponent }) {
+export default function Renamer({ initialName, renameId, renameComponent, onDialogShow }) {
     const [dialogShow, setDialogShow] = useState(false);
     const [newName, setNewName] = useState(initialName);
 
@@ -20,6 +20,7 @@ export default function Renamer({ initialName, renameId, renameComponent }) {
                     e.preventDefault();
                     e.stopPropagation();
                     setDialogShow(true);
+                    onDialogShow();
                 }}
             >
                 Rename

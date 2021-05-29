@@ -25,11 +25,13 @@ export default function SettingsButton({ componentName, componentId, deleteCompo
                 <Renamer 
                     initialName={componentName} 
                     renameId={componentId} 
-                    renameComponent={renameComponent} 
+                    renameComponent={renameComponent}
+                    onDialogShow={() => setOptionsShow(false)}
                 />
                 <Deleter 
                     deleteId={componentId} 
                     deleteComponent={deleteComponent} 
+                    onDialogShow={() => setOptionsShow(false)}
                 />
             </div>
         </>

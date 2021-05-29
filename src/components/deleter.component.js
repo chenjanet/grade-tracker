@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Dialog from './dialog.component';
 
-export default function Deleter({ deleteId, deleteComponent }) {
+export default function Deleter({ deleteId, deleteComponent, onDialogShow }) {
     const [dialogShow, setDialogShow] = useState(false);
     return ( 
         <>
@@ -11,6 +11,7 @@ export default function Deleter({ deleteId, deleteComponent }) {
                     e.preventDefault();
                     e.stopPropagation();
                     setDialogShow(true);
+                    onDialogShow();
                 }}
             >
                 Delete

@@ -50,7 +50,8 @@ router.route('/:id').get((req, res) => {
 
 router.route('/:id').delete((req, res) => {
     Course.findByIdAndDelete(req.params.id)
-        .then(() => res.json('Course deleted.'));
+        .then(() => res.json('Course deleted.'))
+        .catch(err => res.status(400).json('Error: ' + err));
 });
 
 router.route('/deleteByGroup/:groupId').delete((req, res) => {

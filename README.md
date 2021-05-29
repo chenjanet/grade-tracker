@@ -25,7 +25,6 @@
 - User authentication (ish)
 
 #### Coming soon
-- Move backend + frontend ports to a .env file
 - Conversion to 4-point GPA scale
 - Dark mode 😎
 

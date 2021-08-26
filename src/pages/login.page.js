@@ -32,7 +32,7 @@ export default function Login({setToken}) {
                 <div className='card login-card mt-2 mb-2 pt-3 pb-3 pr-3 pl-3'>
                     <form onSubmit={handleSubmit}> 
                         <div className='form-group text-left'>
-                            <label htmlFor='username'>Username</label>
+                            <label htmlFor='loginUsername'>Username</label>
                             <input type='text' className='form-control' id='loginUsername' onChange={e => setUsername(e.target.value)} />
                         </div>
                         <div className='form-group text-left'>
